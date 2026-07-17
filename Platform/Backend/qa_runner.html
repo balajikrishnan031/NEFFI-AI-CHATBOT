@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Neffi 50-Question QA Runner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f4f7f6;
+        }
+
+        .result {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .question {
+            font-weight: bold;
+            color: #d32f2f;
+        }
+
+        .answer {
+            color: #2e7d32;
+            margin-top: 10px;
+            white-space: pre-wrap;
+        }
+
+        #status {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Neffi Live QA Test</h1>
+    <div id="status">Testing 0/15...</div>
+    <div id="results"></div>
+
+    <script>
+        const questions = [
+            "I feel so betrayed. My best friend lied to me.",
+            "I am constantly terrified that I have a serious disease, even though doctors say I'm fine.",
+            "I don't see the point of anything anymore. Everything is just gray and meaningless.",
+            "I can't stop checking the locks on my door. I do it 20 times before I sleep.",
+            "I'm so exhausted but I can't sleep. My mind is racing 100 miles an hour.",
+            "I feel like everyone is judging me when I walk into a room. I hate it.",
+            "My partner just left me and I feel like my heart is physically torn apart.",
+            "I'm so stressed about my finances, I feel like I'm drowning.",
+            "I am angry all the time. The smallest things make me explode.",
+            "I feel so guilty for a mistake I made 5 years ago. I can't let it go.",
+            "I just found out I didn't get the promotion. I feel completely worthless.",
+            "I am having intrusive thoughts that really scare me.",
+            "I feel numb. I don't feel sad, I don't feel happy, just empty.",
+            "I am so overwhelmed with work, I just want to run away and hide.",
+            "Tell me a joke, I just want to distract myself from this boredom."
+        ];
+
+        async function runTests() {
+            const resultsDiv = document.getElementById('results');
+            const statusDiv = document.getElementById('status');
+
+            for (let i = 0; i < questions.length; i++) {
+                statusDiv.innerText = `Testing ${i + 1}/${questions.length}...`;
+
+                try {
+                    const response = await fetch('https://balajikrishnan031-neffi-backend.hf.space/api/chat', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            patient_id: "QA_TEST",
+                            message: questions[i],
+                            current_mhq: 50,
+                            depression_level: "Moderate",
+                            clinical_context: "Testing mode"
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    const div = document.createElement('div');
+                    div.className = 'result';
+                    div.innerHTML = `<div class="question">Q: ${questions[i]}</div><div class="answer">Neffi: ${data.reply}</div>`;
+                    resultsDiv.appendChild(div);
+                } catch (error) {
+                    const div = document.createElement('div');
+                    div.className = 'result';
+                    div.innerHTML = `<div class="question">Q: ${questions[i]}</div><div class="answer" style="color:red">Error: ${error.message}</div>`;
+                    resultsDiv.appendChild(div);
+                }
+            }
+            statusDiv.innerText = `Completed ${questions.length} Tests!`;
+        }
+
+        runTests();
+    </script>
+</body>
+
+</html>

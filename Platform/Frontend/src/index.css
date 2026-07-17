@@ -1,0 +1,471 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&family=Dancing+Script:wght@600;700&family=Raleway:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap');
+
+@theme {
+  --font-inter: 'Inter', sans-serif;
+  --font-space: 'Space Grotesk', sans-serif;
+  --font-raleway: 'Raleway', sans-serif;
+  --font-outfit: 'Outfit', sans-serif;
+  --font-cursive: 'Dancing Script', cursive;
+
+  --animate-fade-in: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-slide-up: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-scale-up: scaleUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  --animate-pulse-slow: pulseSlow 4s ease-in-out infinite;
+  --animate-slide-in-left: slideInLeft 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-slide-in-right: slideInRight 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-breathing: breathing 8s ease-in-out infinite;
+  --animate-radar: radarRotate 30s linear infinite;
+  --animate-float: floatCard 4s ease-in-out infinite;
+  --animate-glow-pulse: glowPulse 2s ease-in-out infinite;
+  --animate-wave-drift: waveDrift 12s ease-in-out infinite;
+  --animate-fade-in-up: fadeInUp 0.45s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleUp {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes pulseSlow {
+    0%, 100% {
+      opacity: 0.25;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.35;
+      transform: scale(1.05);
+    }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes breathing {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(58, 112, 112, 0.2);
+    }
+    45%, 55% {
+      transform: scale(1.15);
+      box-shadow: 0 0 30px 10px rgba(58, 112, 112, 0.15);
+    }
+  }
+
+  @keyframes radarRotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes floatCard {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  @keyframes glowPulse {
+    0%, 100% {
+      box-shadow: 0 0 12px rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.25);
+    }
+    50% {
+      box-shadow: 0 0 24px rgba(239, 68, 68, 0.45);
+      border-color: rgba(239, 68, 68, 0.65);
+    }
+  }
+
+  @keyframes waveDrift {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(-3%, 4%) scale(1.03);
+    }
+  }
+}
+
+/* Body background with slightly blurred screen-fitted image overlay */
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  color: #1e293b;
+  background: linear-gradient(135deg, rgba(242, 249, 246, 0.85), rgba(225, 240, 235, 0.8));
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('/neffi-bg.png') no-repeat center center fixed;
+  background-size: cover;
+  filter: blur(14px);
+  transform: scale(1.06);
+  z-index: -10;
+  pointer-events: none;
+}
+
+/* Glowing utilities for cards, panels, and buttons */
+.glow-teal {
+  box-shadow: 0 0 25px rgba(13, 112, 112, 0.22), 0 4px 12px rgba(13, 112, 112, 0.08);
+  border: 1px solid rgba(13, 112, 112, 0.25) !important;
+}
+.glow-emerald {
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.22), 0 4px 12px rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.25) !important;
+}
+.glow-rose {
+  box-shadow: 0 0 25px rgba(244, 63, 94, 0.22), 0 4px 12px rgba(244, 63, 94, 0.08);
+  border: 1px solid rgba(244, 63, 94, 0.25) !important;
+}
+.glow-purple {
+  box-shadow: 0 0 25px rgba(139, 92, 246, 0.22), 0 4px 12px rgba(139, 92, 246, 0.08);
+  border: 1px solid rgba(139, 92, 246, 0.25) !important;
+}
+.glow-gold {
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.22), 0 4px 12px rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.25) !important;
+}
+.glow-white {
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 4px 15px rgba(255, 255, 255, 0.4);
+}
+
+/* Additional ambient colorful glowing orbs */
+.glow-orb-teal {
+  background: radial-gradient(circle, rgba(13, 112, 112, 0.25) 0%, transparent 70%);
+}
+.glow-orb-emerald {
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 70%);
+}
+.glow-orb-rose {
+  background: radial-gradient(circle, rgba(244, 63, 94, 0.18) 0%, transparent 70%);
+}
+.glow-orb-purple {
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.18) 0%, transparent 70%);
+}
+.glow-orb-gold {
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.2) 0%, transparent 70%);
+}
+
+/* Orbiting Animation Classes */
+.orbit-container-1 {
+  animation: rotate-cw 25s linear infinite;
+}
+.orbit-item-1 {
+  animation: rotate-ccw 25s linear infinite;
+}
+.orbit-container-2 {
+  animation: rotate-cw 35s linear infinite;
+}
+.orbit-item-2 {
+  animation: rotate-ccw 35s linear infinite;
+}
+
+@keyframes rotate-cw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rotate-ccw {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+/* Typography styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: -0.01em;
+}
+
+
+/* Hide scrollbar for a clean app look */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ==========================================================================
+   GLASSMORPHISM DESIGN SYSTEM TOKENS
+   ========================================================================== */
+
+/* Standard card for grids, dashboard cards, check-in options */
+.glass-card {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 8px 32px 0 rgba(58, 112, 112, 0.06);
+}
+
+/* hover animation for cards */
+.glass-card-hover {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-card-hover:hover {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(58, 112, 112, 0.3);
+  box-shadow: 0 16px 48px 0 rgba(58, 112, 112, 0.12);
+  transform: translateY(-4px) scale(1.01);
+}
+
+/* Large panels e.g., onboarding form, dashboard main panels, admin center */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(24px) saturate(145%);
+  -webkit-backdrop-filter: blur(24px) saturate(145%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 12px 40px 0 rgba(58, 112, 112, 0.1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Transparent panel for dashboard main body wrap */
+.glass-panel-main {
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Floating Navigation Header */
+.glass-nav {
+  background: rgba(255, 255, 255, 0.38);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(58, 112, 112, 0.04);
+  transition: all 0.3s ease;
+}
+.glass-nav:hover {
+  background: rgba(255, 255, 255, 0.5);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+/* Form controls and inputs */
+.glass-input {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(4px);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-input:focus {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(58, 112, 112, 0.6);
+  box-shadow: 0 0 0 4px rgba(58, 112, 112, 0.15);
+  outline: none;
+}
+
+/* Dashboard Sidebar background */
+.glass-sidebar {
+  background: rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(24px) saturate(125%);
+  -webkit-backdrop-filter: blur(24px) saturate(125%);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Chat Message Bubbles */
+.glass-message-user {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px) saturate(110%);
+  -webkit-backdrop-filter: blur(12px) saturate(110%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 16px 0 rgba(30, 41, 59, 0.04);
+  animation: scaleUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.glass-message-neffi {
+  background: rgba(224, 251, 244, 0.45);
+  backdrop-filter: blur(12px) saturate(110%);
+  -webkit-backdrop-filter: blur(12px) saturate(110%);
+  border: 1px solid rgba(58, 112, 112, 0.2);
+  box-shadow: 0 4px 16px 0 rgba(58, 112, 112, 0.04);
+  animation: scaleUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Mixed Cursive/Serif Typography Highlight */
+.cursive-accent {
+  font-family: 'Dancing Script', cursive;
+  font-weight: 700;
+  font-size: 1.25em;
+  display: inline-block;
+  transform: rotate(-1deg);
+  letter-spacing: normal;
+}
+
+.font-cursive {
+  font-family: 'Dancing Script', cursive !important;
+}
+
+.cursive-accent-lg {
+  font-family: 'Dancing Script', cursive !important;
+  font-weight: 700;
+  display: inline-block;
+}
+
+/* ==========================================================================
+   GOOGLE GEMINI DESIGN STYLE UTILITIES
+   ========================================================================== */
+
+/* Dark backgrounds */
+.gemini-dark-bg {
+  background-color: #131314 !important;
+}
+
+.gemini-card-bg {
+  background-color: #1e1f20 !important;
+}
+
+.gemini-sidebar-bg {
+  background-color: #0e0e10 !important;
+}
+
+/* Floating gradient glow behind Gemini input box */
+.gemini-radial-glow {
+  background: radial-gradient(circle at 50% 90%, rgba(66, 92, 140, 0.12) 0%, rgba(30, 36, 52, 0.04) 50%, transparent 100%) !important;
+  pointer-events: none;
+}
+
+/* User chat bubble */
+.gemini-user-bubble {
+  background-color: #1e1f20 !important;
+  color: #e3e3e3 !important;
+  border-radius: 1.5rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.04) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Assistant text alignment */
+.gemini-bot-text {
+  color: #e3e3e3 !important;
+  line-height: 1.8 !important;
+  font-size: 15.5px !important;
+  letter-spacing: 0.01em !important;
+}
+
+/* Action button icons under bot replies */
+.gemini-action-btn {
+  color: #c4c7c5 !important;
+  padding: 0.5rem !important;
+  border-radius: 9999px !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.gemini-action-btn:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+}
+
+/* Input pill capsule */
+.gemini-input-capsule {
+  background-color: #1e1f20 !important;
+  border: 1px solid rgba(255, 255, 255, 0.04) !important;
+  border-radius: 2rem !important;
+  color: #e3e3e3 !important;
+  transition: all 0.2s ease !important;
+}
+
+.gemini-input-capsule:focus-within {
+  background-color: #232426 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Action button icons under bot replies for light background */
+.gemini-action-btn-light {
+  color: #5f6368 !important;
+  padding: 0.5rem !important;
+  border-radius: 9999px !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.gemini-action-btn-light:hover {
+  background-color: rgba(58, 112, 112, 0.08) !important;
+  color: #2C5555 !important;
+}
+
+/* Shadow drop to make flat text pop against backdrop image */
+.chat-text-pop {
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+}
+

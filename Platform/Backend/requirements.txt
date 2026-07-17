@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+pydantic
+sqlalchemy
+requests
+python-dotenv
+transformers
+torch
+sentence-transformers
+pinecone-client

@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.env
+Platform/n8n/
+Platform/Backend/n8n_workflows/
+node_modules/
+.DS_Store
+neffi_clinical.db
+user_state.json
+deploy_hf.py
