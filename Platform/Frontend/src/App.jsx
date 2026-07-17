@@ -1464,7 +1464,9 @@ const ChatArea = ({
   handleNewChat,
   handleDeleteSession,
   isSidebarOpen,
-  setIsSidebarOpen
+  setIsSidebarOpen,
+  showSOS,
+  setShowSOS
 }) => {
 
   const [moodSet, setMoodSet] = useState(false);
@@ -1504,7 +1506,6 @@ const ChatArea = ({
   const [isTyping, setIsTyping] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [isVoiceEnabled, setIsVoiceEnabled] = useState(false);
-  const [showSOS, setShowSOS] = useState(false);
   const [showMediaPlayer, setShowMediaPlayer] = useState(false);
   const [showAppointmentPopup, setShowAppointmentPopup] = useState(false);
   const [appointmentPrompted, setAppointmentPrompted] = useState(false);
@@ -1892,16 +1893,6 @@ const ChatArea = ({
         </div>
           
           <CameraEmotionTracker isCameraActive={isCameraActive} onEmotionDetected={setVisualEmotion} />
-  
-          {showSOS && (
-            <div className="absolute top-24 left-1/2 transform -translate-x-1/2 z-50 bg-white/80 backdrop-blur-md border border-red-500/20 p-8 rounded-[2rem] shadow-2xl flex flex-col items-center animate-fade-in w-80 text-center">
-              <div className="w-16 h-16 bg-red-500/10 rounded-2xl flex items-center justify-center text-red-500 mb-6"><AlertTriangle size={32}/></div>
-              <h3 className="text-xl font-space font-black text-slate-800 mb-2">Emergency Hotline</h3>
-              <p className="text-sm text-slate-600 mb-6 font-space font-semibold">You are not alone. Please call iCall India for immediate support.</p>
-              <div className="text-2xl font-space font-black text-[#2C5555] mb-6 tracking-widest">9152987821</div>
-              <button onClick={() => setShowSOS(false)} className="px-8 py-3 rounded-xl bg-white/20 border border-white/30 text-slate-700 font-space font-bold text-sm hover:bg-white/45 w-full transition-colors cursor-pointer">Close</button>
-            </div>
-          )}
   
           {showMediaPlayer && <MediaPlayer onClose={() => setShowMediaPlayer(false)} />}
   
@@ -2518,6 +2509,7 @@ const PatientDashboard = ({ setView, userData }) => {
   const [globalPoints, setGlobalPoints] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth >= 768);
+  const [showSOS, setShowSOS] = useState(false);
 
   const [sessions, setSessions] = useState(() => {
     const saved = localStorage.getItem('neffi_chat_sessions');
@@ -2592,7 +2584,9 @@ const PatientDashboard = ({ setView, userData }) => {
       currentSessionId, 
       setCurrentSessionId, 
       handleNewChat, 
-      handleDeleteSession 
+      handleDeleteSession,
+      showSOS,
+      setShowSOS
     };
     switch(activePage) {
       case 'chat': return <ChatArea {...props} />;
@@ -2773,6 +2767,16 @@ const PatientDashboard = ({ setView, userData }) => {
       <div className="flex-1 h-full w-full min-w-0 relative flex flex-col overflow-hidden bg-transparent z-10">
         {renderContent()}
       </div>
+
+      {showSOS && (
+        <div className="absolute top-24 left-1/2 transform -translate-x-1/2 z-50 bg-white/80 backdrop-blur-md border border-red-500/20 p-8 rounded-[2rem] shadow-2xl flex flex-col items-center animate-fade-in w-80 text-center">
+          <div className="w-16 h-16 bg-red-500/10 rounded-2xl flex items-center justify-center text-red-500 mb-6"><AlertTriangle size={32}/></div>
+          <h3 className="text-xl font-space font-black text-slate-800 mb-2">Emergency Hotline</h3>
+          <p className="text-sm text-slate-600 mb-6 font-space font-semibold">You are not alone. Please call iCall India for immediate support.</p>
+          <div className="text-2xl font-space font-black text-[#2C5555] mb-6 tracking-widest">9152987821</div>
+          <button onClick={() => setShowSOS(false)} className="px-8 py-3 rounded-xl bg-white/20 border border-white/30 text-slate-700 font-space font-bold text-sm hover:bg-white/45 w-full transition-colors cursor-pointer">Close</button>
+        </div>
+      )}
     </div>
   );
 };
