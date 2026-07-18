@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 from datetime import datetime
 import requests
 
-from clinical_db import get_db, get_or_create_patient, calculate_mhq_delta, update_mhq_score, Patient, ChatMessage, MoodCheckIn
+from clinical_db import get_db, get_or_create_patient, calculate_mhq_delta, update_mhq_score, Patient, ChatMessage, MoodCheckIn, ChatSession
 from clinical_ai import analyze_clinical_state, analyze_intent
 from memory_engine import memory_engine
 
@@ -53,7 +53,24 @@ N8N_APPOINTMENT_WEBHOOK = "http://localhost:5678/webhook/neffi-appointment"
 class ChatRequest(BaseModel):
     patient_id: str
     message: str
+    session_id: str
     emotional_context: str = ""  # Last emotional message for Story/Music/Joke context
+
+class PatientLoginRequest(BaseModel):
+    patient_id: str
+    name: str
+    phone: str = ""
+    email: str = ""
+    age: int = 0
+    dob: str = ""
+    gender: str = ""
+    place: str = ""
+    language: str = "English"
+    focus_tags: list = []
+
+class SessionUpsertRequest(BaseModel):
+    session_id: str
+    title: str
 
 class AppointmentRequest(BaseModel):
     patient_id: str
@@ -85,6 +102,113 @@ def trigger_sos_alert(patient_id: str, message: str, clinical_state: str):
         print(f"[SOS ALERT SENT] Patient: {patient_id} | State: {clinical_state}")
     except Exception as e:
         print(f"[SOS ALERT FAILED] {e}")
+
+# ----------------------------------------------------------
+# PATIENT LOGIN & PROFILE PERSISTENCE
+# ----------------------------------------------------------
+@app.post("/api/patient/login")
+async def patient_login(req: PatientLoginRequest, db: Session = Depends(get_db)):
+    try:
+        # Get or create patient profile
+        patient = get_or_create_patient(db, req.patient_id)
+        
+        # Update full registration details
+        patient.name = req.name
+        patient.phone = req.phone
+        patient.email = req.email
+        patient.age = req.age
+        patient.dob = req.dob
+        patient.gender = req.gender
+        patient.place = req.place
+        patient.language = req.language
+        
+        # Store focus tags as comma-separated string
+        patient.focus_tags = ",".join(req.focus_tags) if req.focus_tags else ""
+        
+        db.commit()
+        db.refresh(patient)
+        return {
+            "status": "success",
+            "patient_id": patient.patient_id,
+            "name": patient.name
+        }
+    except Exception as e:
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+# ----------------------------------------------------------
+# CHAT SESSIONS PERSISTENCE
+# ----------------------------------------------------------
+@app.get("/api/patient/{patient_id}/sessions")
+async def get_patient_sessions(patient_id: str, db: Session = Depends(get_db)):
+    try:
+        sessions = db.query(ChatSession).filter(ChatSession.patient_id == patient_id).order_by(ChatSession.created_at.desc()).all()
+        result = []
+        for s in sessions:
+            # Query all messages in this session
+            msgs = db.query(ChatMessage).filter(ChatMessage.session_id == s.session_id).order_by(ChatMessage.timestamp.asc()).all()
+            messages_list = []
+            for m in msgs:
+                time_str = m.timestamp.strftime("%I:%M %p")
+                messages_list.append({
+                    "id": f"msg-u-{m.id}",
+                    "sender": "user",
+                    "text": m.message,
+                    "time": time_str
+                })
+                messages_list.append({
+                    "id": f"msg-n-{m.id}",
+                    "sender": "neffi",
+                    "text": m.ai_reply,
+                    "time": time_str
+                })
+            
+            # Format date representation e.g. "Jul 18"
+            date_str = s.created_at.strftime("%b %d")
+            result.append({
+                "id": s.session_id,
+                "title": s.title,
+                "date": date_str,
+                "messages": messages_list
+            })
+            
+        return {"status": "success", "sessions": result}
+    except Exception as e:
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/patient/{patient_id}/session")
+async def upsert_patient_session(patient_id: str, req: SessionUpsertRequest, db: Session = Depends(get_db)):
+    try:
+        session = db.query(ChatSession).filter(ChatSession.session_id == req.session_id).first()
+        if not session:
+            session = ChatSession(
+                session_id=req.session_id,
+                patient_id=patient_id,
+                title=req.title
+            )
+            db.add(session)
+        else:
+            session.title = req.title
+            
+        db.commit()
+        return {"status": "success", "session_id": req.session_id}
+    except Exception as e:
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.delete("/api/patient/{patient_id}/session/{session_id}")
+async def delete_patient_session(patient_id: str, session_id: str, db: Session = Depends(get_db)):
+    try:
+        # Delete messages in session
+        db.query(ChatMessage).filter(ChatMessage.session_id == session_id).delete()
+        # Delete session itself
+        db.query(ChatSession).filter(ChatSession.session_id == session_id).delete()
+        db.commit()
+        return {"status": "success", "message": "Session deleted successfully"}
+    except Exception as e:
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
 
 # ----------------------------------------------------------
 # MAIN CHAT ENDPOINT
@@ -709,9 +833,21 @@ async def process_chat(req: ChatRequest, background_tasks: BackgroundTasks, db: 
                 
             suggested_options = [dynamic_option_text] + fallback_entertainment
 
+        # Ensure session exists in the database
+        session_exists = db.query(ChatSession).filter(ChatSession.session_id == req.session_id).first()
+        if not session_exists:
+            new_sess = ChatSession(
+                session_id=req.session_id,
+                patient_id=patient.patient_id,
+                title=req.message[:26] + ("..." if len(req.message) > 26 else "")
+            )
+            db.add(new_sess)
+            db.commit()
+
         # DB Save
         chat_msg = ChatMessage(
             patient_id=patient.patient_id,
+            session_id=req.session_id,
             message=req.message,
             ai_reply=ai_reply,
             bert_emotion=bert_emotion,

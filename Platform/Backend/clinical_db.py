@@ -17,6 +17,14 @@ class Patient(Base):
     __tablename__ = "patients"
     patient_id = Column(String, primary_key=True, index=True)
     name = Column(String, default="Anonymous")
+    email = Column(String, default="")
+    phone = Column(String, default="")
+    age = Column(Integer, default=0)
+    dob = Column(String, default="")
+    gender = Column(String, default="")
+    place = Column(String, default="")
+    language = Column(String, default="English")
+    focus_tags = Column(String, default="")  # comma-separated focus tags
     mhq_score = Column(Float, default=50.0)  # 0-100: lower = more depressed
     depression_level = Column(String, default="Moderate")  # Low / Moderate / High / Critical
     assigned_doctor = Column(String, default="Unassigned")
@@ -25,11 +33,20 @@ class Patient(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     last_active_at = Column(DateTime, default=datetime.utcnow)
 
+class ChatSession(Base):
+    """Chat sessions for a patient"""
+    __tablename__ = "chat_sessions"
+    session_id = Column(String, primary_key=True, index=True)
+    patient_id = Column(String, index=True)
+    title = Column(String, default="New Chat Session")
+    created_at = Column(DateTime, default=datetime.utcnow)
+
 class ChatMessage(Base):
     """Every chat message stored permanently with emotion + clinical state"""
     __tablename__ = "chat_messages"
     id = Column(Integer, primary_key=True, autoincrement=True)
     patient_id = Column(String, index=True)
+    session_id = Column(String, index=True, default="session-1")
     message = Column(Text)
     ai_reply = Column(Text)
     # BERT 6 basic emotions
