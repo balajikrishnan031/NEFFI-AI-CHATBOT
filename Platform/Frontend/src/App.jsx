@@ -1019,7 +1019,7 @@ const PatientLogin = ({ setView, setUserData }) => {
       const patientId = 'P-' + phoneClean.slice(-6);
       const fullData = { ...formData, patient_id: patientId };
 
-      axios.post('https://balajikrishnan031-keffi-backend.hf.space/api/patient/login', {
+      axios.post('https://balaji031-neffi-backend.hf.space/api/patient/login', {
         patient_id: patientId,
         name: formData.name,
         phone: formData.phone,
@@ -1297,7 +1297,7 @@ const DailyMoodCheckIn = ({ patientId, onComplete }) => {
 
   const handleMoodSelect = (mood) => {
     setIsSubmitting(true);
-    fetch('https://balajikrishnan031-keffi-backend.hf.space/api/patient/check-in', {
+    fetch('https://balaji031-neffi-backend.hf.space/api/patient/check-in', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -1522,7 +1522,7 @@ const ChatArea = ({
       });
 
       if (titleToSync && userData?.patient_id) {
-        axios.post(`https://balajikrishnan031-keffi-backend.hf.space/api/patient/${userData.patient_id}/session`, {
+        axios.post(`https://balaji031-neffi-backend.hf.space/api/patient/${userData.patient_id}/session`, {
           session_id: currentSessionId,
           title: titleToSync
         }).catch(err => console.error("Error syncing session title to backend:", err));
@@ -1659,7 +1659,7 @@ const ChatArea = ({
     try {
       const payloadContext = isCameraActive && visualEmotion ? `[Visual Face Emotion Detected via Webcam: ${visualEmotion}] ` + lastEmotionalMessage : lastEmotionalMessage;
       
-      const response = await axios.post('https://balajikrishnan031-keffi-backend.hf.space/api/chat', {
+      const response = await axios.post('https://balaji031-neffi-backend.hf.space/api/chat', {
         message: message,
         patient_id: userData?.patient_id || "P-102",
         session_id: currentSessionId,
@@ -1713,7 +1713,7 @@ const ChatArea = ({
   const handleBookAppointment = async () => {
     setShowAppointmentPopup(false);
     try {
-      await axios.post('https://balajikrishnan031-keffi-backend.hf.space/api/book_appointment', {
+      await axios.post('https://balaji031-neffi-backend.hf.space/api/book_appointment', {
         patient_id: "P-102",
         name: userData?.name || "Patient",
         phone: userData?.phone || "9876543210",
@@ -2547,7 +2547,7 @@ const PatientDashboard = ({ setView, userData }) => {
 
   useEffect(() => {
     if (userData?.patient_id) {
-      axios.get(`https://balajikrishnan031-keffi-backend.hf.space/api/patient/${userData.patient_id}/sessions`)
+      axios.get(`https://balaji031-neffi-backend.hf.space/api/patient/${userData.patient_id}/sessions`)
         .then(res => {
           const loadedSessions = res.data.sessions || [];
           
@@ -2564,7 +2564,7 @@ const PatientDashboard = ({ setView, userData }) => {
           setSessions(updated);
           setCurrentSessionId(newId);
           
-          axios.post(`https://balajikrishnan031-keffi-backend.hf.space/api/patient/${userData.patient_id}/session`, {
+          axios.post(`https://balaji031-neffi-backend.hf.space/api/patient/${userData.patient_id}/session`, {
             session_id: newId,
             title: newSession.title
           }).catch(err => console.error("Error creating initial session:", err));
@@ -2593,7 +2593,7 @@ const PatientDashboard = ({ setView, userData }) => {
     };
     
     if (userData?.patient_id) {
-      axios.post(`https://balajikrishnan031-keffi-backend.hf.space/api/patient/${userData.patient_id}/session`, {
+      axios.post(`https://balaji031-neffi-backend.hf.space/api/patient/${userData.patient_id}/session`, {
         session_id: newId,
         title: newSession.title
       }).catch(err => console.error("Error creating session in backend:", err));
@@ -2614,7 +2614,7 @@ const PatientDashboard = ({ setView, userData }) => {
     }
     
     if (userData?.patient_id) {
-      axios.delete(`https://balajikrishnan031-keffi-backend.hf.space/api/patient/${userData.patient_id}/session/${sessionId}`)
+      axios.delete(`https://balaji031-neffi-backend.hf.space/api/patient/${userData.patient_id}/session/${sessionId}`)
         .catch(err => console.error("Error deleting session in backend:", err));
     }
     
@@ -2880,9 +2880,9 @@ const AdminDashboard = ({ setView }) => {
     const fetchData = async () => {
       try {
         const [resPat, resInact, resAnalyt] = await Promise.all([
-          axios.get('https://balajikrishnan031-keffi-backend.hf.space/api/admin/patients'),
-          axios.get('https://balajikrishnan031-keffi-backend.hf.space/api/admin/inactive-patients'),
-          axios.get('https://balajikrishnan031-keffi-backend.hf.space/api/admin/analytics')
+          axios.get('https://balaji031-neffi-backend.hf.space/api/admin/patients'),
+          axios.get('https://balaji031-neffi-backend.hf.space/api/admin/inactive-patients'),
+          axios.get('https://balaji031-neffi-backend.hf.space/api/admin/analytics')
         ]);
         if (resPat.data && resPat.data.patients) setPatients(resPat.data.patients);
         if (resInact.data && resInact.data.patients) setInactivePatients(resInact.data.patients);
@@ -2952,7 +2952,7 @@ const AdminDashboard = ({ setView }) => {
 
   const handleExportAbstract = async (patientId) => {
     try {
-      const res = await axios.get(`https://balajikrishnan031-keffi-backend.hf.space/api/patient/${patientId}/report`);
+      const res = await axios.get(`https://balaji031-neffi-backend.hf.space/api/patient/${patientId}/report`);
       const data = res.data;
       const content = `Clinical Abstract for ${data.name || data.patient_id}\n\nMHQ Score: ${data.current_mhq}\nRisk Level: ${data.depression_level}\nAssigned Doctor: ${data.assigned_doctor || 'Unassigned'}\n\nSummary:\n${data.clinical_abstract}\n`;
       const blob = new Blob([content], { type: 'text/plain' });
@@ -2970,7 +2970,7 @@ const AdminDashboard = ({ setView }) => {
 
   const assignTherapist = async (patientId, docName) => {
     try {
-      await axios.post('https://balajikrishnan031-keffi-backend.hf.space/api/admin/assign-therapist', { patient_id: patientId, doctor_name: docName });
+      await axios.post('https://balaji031-neffi-backend.hf.space/api/admin/assign-therapist', { patient_id: patientId, doctor_name: docName });
       alert(`Successfully assigned ${docName} to ${patientId}`);
     } catch(err) {
       console.error(err);
@@ -3308,86 +3308,152 @@ const IntroAnimation = ({ onComplete }) => {
   return (
     <div className={`fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden transition-opacity duration-[700ms] ${fadeOut ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
          style={{
-           backgroundImage: `linear-gradient(135deg, rgba(230, 245, 240, 0.82) 0%, rgba(240, 252, 248, 0.75) 40%, rgba(220, 238, 234, 0.80) 100%), url('/neffi-bg.png')`,
+           backgroundImage: `linear-gradient(135deg, rgba(230, 245, 240, 0.52) 0%, rgba(240, 252, 248, 0.45) 40%, rgba(220, 238, 234, 0.50) 100%), url('/neffi-bg.png')`,
            backgroundSize: 'cover',
            backgroundPosition: 'center top'
          }}>
       
       {/* Aurora blurred backgrounds in background */}
-      <div className="absolute -top-10 -left-10 w-[500px] h-[500px] bg-[#8FA989] rounded-full blur-[140px] opacity-40 animate-pulse" style={{ animationDuration: '6s' }}></div>
-      <div className="absolute -bottom-10 -right-10 w-[500px] h-[500px] bg-[#3A7070] rounded-full blur-[140px] opacity-35 animate-pulse" style={{ animationDuration: '8s' }}></div>
+      <div className="absolute -top-10 -left-10 w-[600px] h-[600px] bg-[#8FA989] rounded-full blur-[140px] opacity-35 animate-pulse" style={{ animationDuration: '6s' }}></div>
+      <div className="absolute -bottom-10 -right-10 w-[600px] h-[600px] bg-[#3A7070] rounded-full blur-[140px] opacity-30 animate-pulse" style={{ animationDuration: '8s' }}></div>
 
-      {/* Floating glass panel */}
-      <div className="relative w-[90%] max-w-xl aspect-[1.8/1] rounded-[2.5rem] p-8 flex flex-col items-center justify-center overflow-hidden border border-white/45 bg-white/20 backdrop-blur-3xl shadow-[0_30px_70px_rgba(0,0,0,0.08)] animate-[intro-panel-scale_1.2s_cubic-bezier(0.16,1,0.3,1)_forwards]">
+      {/* Full-screen glass overlay panel */}
+      <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center p-8 overflow-hidden bg-white/10 backdrop-blur-[45px]">
         
-        {/* Glass reflection sweep */}
-        <div className="absolute top-0 bottom-0 left-[-150%] w-1/2 bg-gradient-to-r from-transparent via-white/25 to-transparent skew-x-[-25deg] pointer-events-none"
-             style={{ animation: 'glassShine 1.8s cubic-bezier(0.19, 1, 0.22, 1) 3.8s forwards' }}></div>
+        {/* Full-screen Glass reflection sweep */}
+        <div className="absolute top-0 bottom-0 left-[-150%] w-[80%] bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-25deg] pointer-events-none"
+             style={{ animation: 'glassShine 2.2s cubic-bezier(0.19, 1, 0.22, 1) 3.8s forwards' }}></div>
 
         {/* Dynamic Canvas / SVG Calligraphy */}
-        <div className="relative w-full max-w-md h-40 flex items-center justify-center">
-          <svg viewBox="0 0 280 160" className="w-full h-full">
+        <div className="relative w-full max-w-4xl h-[70vh] flex items-center justify-center">
+          <svg viewBox="0 0 850 500" className="w-full h-full filter drop-shadow-[0_15px_35px_rgba(44,85,85,0.15)]">
+            <defs>
+              <linearGradient id="inkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#1E3838" />
+                <stop offset="50%" stopColor="#2C5555" />
+                <stop offset="100%" stopColor="#1E3838" />
+              </linearGradient>
+              <linearGradient id="bambooGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#D4A373" />
+                <stop offset="50%" stopColor="#E9C46A" />
+                <stop offset="100%" stopColor="#D4A373" />
+              </linearGradient>
+              <filter id="inkBleed" x="-10%" y="-10%" width="120%" height="120%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.5" xChannelSelector="R" yChannelSelector="G" />
+              </filter>
+            </defs>
+
             {/* The hidden guide path used for stroke tracing and offset-path */}
             <path id="calligraphyPath" 
-                  d="M 40,110 C 45,95 55,40 60,40 C 65,40 75,120 80,120 C 85,120 100,50 105,45 C 110,40 115,85 115,100 C 115,115 125,115 130,105 C 135,95 132,80 128,82 C 122,85 120,100 128,110 C 132,115 142,108 148,95 C 154,82 152,30 156,30 C 160,30 156,145 158,150 C 160,155 165,120 172,95 C 178,72 182,30 186,30 C 190,30 186,145 188,150 C 190,155 195,120 202,95 C 205,82 212,100 216,110 C 220,120 228,115 235,105" 
+                  d="M 150,280 C 170,220 220,100 240,100 C 240,100 290,320 310,320 C 330,320 380,130 395,120 C 410,110 425,230 425,260 C 425,290 450,280 465,240 C 480,200 470,80 485,80 C 500,80 480,380 490,390 C 500,400 515,300 535,240 C 555,180 545,80 560,80 C 575,80 555,380 565,390 C 575,400 590,300 610,240 C 620,200 640,260 650,280 C 660,300 680,290 700,260" 
                   fill="none" 
-                  stroke="rgba(58, 112, 112, 0.04)" 
-                  strokeWidth="8" 
+                  stroke="rgba(58, 112, 112, 0.02)" 
+                  strokeWidth="14" 
                   strokeLinecap="round" 
                   strokeLinejoin="round" />
 
+            {/* Splatter 1: start of stroke */}
+            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '150px 280px', animation: 'splatPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.6s forwards' }}>
+              <circle cx="150" cy="280" r="4.5" fill="#2C5555" />
+              <circle cx="146" cy="275" r="1.5" fill="#2C5555" />
+              <circle cx="153" cy="284" r="1" fill="#2C5555" />
+              <circle cx="144" cy="283" r="0.8" fill="#2C5555" />
+            </g>
+
+            {/* Splatter 2: top curve of N */}
+            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '240px 100px', animation: 'splatPop 0.5s ease-out 1.0s forwards' }}>
+              <circle cx="240" cy="100" r="3" fill="#2C5555" />
+              <circle cx="236" cy="96" r="1" fill="#2C5555" />
+              <circle cx="245" cy="102" r="1.2" fill="#2C5555" />
+            </g>
+
+            {/* Splatter 3: bottom turn of N */}
+            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '310px 320px', animation: 'splatPop 0.5s ease-out 1.5s forwards' }}>
+              <circle cx="310" cy="320" r="4" fill="#2C5555" />
+              <circle cx="304" cy="316" r="1.5" fill="#2C5555" />
+              <circle cx="315" cy="325" r="1" fill="#2C5555" />
+            </g>
+
+            {/* Splatter 4: First 'f' top */}
+            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '485px 80px', animation: 'splatPop 0.5s ease-out 2.0s forwards' }}>
+              <circle cx="485" cy="80" r="3.5" fill="#2C5555" />
+              <circle cx="480" cy="76" r="1.2" fill="#2C5555" />
+              <circle cx="491" cy="83" r="0.8" fill="#2C5555" />
+            </g>
+
+            {/* Splatter 5: First 'f' lowest point - drip */}
+            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '490px 390px', animation: 'splatDrip 1.5s ease-out 2.3s forwards' }}>
+              <circle cx="490" cy="390" r="5" fill="#2C5555" />
+              <path d="M 490,390 Q 489,405 489.5,420" stroke="#2C5555" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+              <circle cx="489.5" cy="422" r="1.5" fill="#2C5555" />
+              <circle cx="495" cy="396" r="1" fill="#2C5555" />
+            </g>
+
+            {/* Splatter 6: Second 'f' lowest point - drip */}
+            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '565px 390px', animation: 'splatDrip 1.5s ease-out 2.7s forwards' }}>
+              <circle cx="565" cy="390" r="5.5" fill="#2C5555" />
+              <path d="M 565,390 Q 564,408 564.5,425" stroke="#2C5555" strokeWidth="2.4" strokeLinecap="round" fill="none" />
+              <circle cx="564.5" cy="427" r="1.8" fill="#2C5555" />
+              <circle cx="559" cy="385" r="1" fill="#2C5555" />
+            </g>
+
+            {/* Splatter 7: End sweep */}
+            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '700px 260px', animation: 'splatPop 0.5s ease-out 3.2s forwards' }}>
+              <circle cx="700" cy="260" r="4" fill="#2C5555" />
+              <circle cx="706" cy="256" r="1.2" fill="#2C5555" />
+              <circle cx="694" cy="263" r="1" fill="#2C5555" />
+            </g>
+
             {/* The visible animated handwriting stroke */}
-            <path d="M 40,110 C 45,95 55,40 60,40 C 65,40 75,120 80,120 C 85,120 100,50 105,45 C 110,40 115,85 115,100 C 115,115 125,115 130,105 C 135,95 132,80 128,82 C 122,85 120,100 128,110 C 132,115 142,108 148,95 C 154,82 152,30 156,30 C 160,30 156,145 158,150 C 160,155 165,120 172,95 C 178,72 182,30 186,30 C 190,30 186,145 188,150 C 190,155 195,120 202,95 C 205,82 212,100 216,110 C 220,120 228,115 235,105" 
+            <path d="M 150,280 C 170,220 220,100 240,100 C 240,100 290,320 310,320 C 330,320 380,130 395,120 C 410,110 425,230 425,260 C 425,290 450,280 465,240 C 480,200 470,80 485,80 C 500,80 480,380 490,390 C 500,400 515,300 535,240 C 555,180 545,80 560,80 C 575,80 555,380 565,390 C 575,400 590,300 610,240 C 620,200 640,260 650,280 C 660,300 680,290 700,260" 
                   fill="none" 
                   stroke="url(#inkGradient)" 
-                  strokeWidth="7" 
+                  strokeWidth="11" 
                   strokeLinecap="round" 
                   strokeLinejoin="round"
-                  strokeDasharray="1000"
-                  strokeDashoffset="1000"
+                  filter="url(#inkBleed)"
+                  strokeDasharray="2500"
+                  strokeDashoffset="2500"
                   style={{ animation: 'drawText 3.2s cubic-bezier(0.42, 0, 0.58, 1) 0.6s forwards' }} />
 
-            {/* The animated dot of the 'i' */}
-            <circle cx="216" cy="65" r="4.5" 
-                    fill="#3A7070" 
-                    className="opacity-0 scale-0 origin-center"
-                    style={{ animation: 'dotPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) 3.6s forwards' }} />
-
-            {/* Gradients */}
-            <defs>
-              <linearGradient id="inkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#2C5555" />
-                <stop offset="50%" stopColor="#3A7070" />
-                <stop offset="100%" stopColor="#2C5555" />
-              </linearGradient>
-            </defs>
+            {/* The animated dot of the 'i' and its splatters */}
+            <g filter="url(#inkBleed)" className="opacity-0 scale-0 origin-center"
+               style={{ transformOrigin: '650px 160px', animation: 'dotPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) 3.6s forwards' }}>
+              <circle cx="650" cy="160" r="7.5" fill="#2C5555" />
+              <circle cx="642" cy="152" r="2.2" fill="#2C5555" />
+              <circle cx="658" cy="168" r="1.8" fill="#2C5555" />
+              <circle cx="655" cy="151" r="1.5" fill="#2C5555" />
+              <circle cx="643" cy="166" r="1" fill="#2C5555" />
+            </g>
 
             {/* The Calligraphy Brush Tip moving along the path */}
             <g style={{
-                 offsetPath: `path('M 40,110 C 45,95 55,40 60,40 C 65,40 75,120 80,120 C 85,120 100,50 105,45 C 110,40 115,85 115,100 C 115,115 125,115 130,105 C 135,95 132,80 128,82 C 122,85 120,100 128,110 C 132,115 142,108 148,95 C 154,82 152,30 156,30 C 160,30 156,145 158,150 C 160,155 165,120 172,95 C 178,72 182,30 186,30 C 190,30 186,145 188,150 C 190,155 195,120 202,95 C 205,82 212,100 216,110 C 220,120 228,115 235,105')`,
+                 offsetPath: `path('M 150,280 C 170,220 220,100 240,100 C 240,100 290,320 310,320 C 330,320 380,130 395,120 C 410,110 425,230 425,260 C 425,290 450,280 465,240 C 480,200 470,80 485,80 C 500,80 480,380 490,390 C 500,400 515,300 535,240 C 555,180 545,80 560,80 C 575,80 555,380 565,390 C 575,400 590,300 610,240 C 620,200 640,260 650,280 C 660,300 680,290 700,260')`,
                  animation: 'brushMove 3.2s cubic-bezier(0.42, 0, 0.58, 1) 0.6s forwards',
                  opacity: 0
                }}>
-              {/* Brush tip graphics: origin at point (15, 45) */}
-              <g transform="translate(-15, -45)">
-                {/* Brush hair tip */}
-                <path d="M12,40 C12,40 14,25 15,0 C16,25 18,40 18,40 C18,40 22,43 15,50 C8,43 12,40 12,40 Z" fill="#2d251e" />
-                {/* Ink smudge inside brush */}
-                <path d="M14,40 C14,40 14.5,30 15,12 C15.5,30 16,40 16,40 C16,40 18,41 15,44 C12,41 14,40 14,40 Z" fill="#3A7070" opacity="0.8" />
-                {/* Bamboo handle */}
-                <rect x="14" y="-30" width="2" height="30" fill="#e6c387" />
+              {/* Brush tip graphics: scaled up and designed like a large wood/bamboo calligraphy brush */}
+              <g transform="translate(-25, -75) scale(1.65)">
+                {/* Bamboo Handle */}
+                <path d="M13,-40 L17,-40 L16.5,25 L13.5,25 Z" fill="url(#bambooGradient)" />
+                <rect x="13.5" y="25" width="3" height="4" fill="#1a1a1a" />
+                {/* Black Brush Hair ferrule block */}
+                <path d="M13,29 C11,36 9,45 15,55 C21,45 19,36 17,29 Z" fill="#1C1917" />
+                {/* Dark wet ink tip */}
+                <path d="M13.8,37 C12,44 11.5,48 15,55 C18.5,48 18,44 16.2,37 Z" fill="#2C5555" />
               </g>
             </g>
           </svg>
         </div>
 
-        {/* Red Ink Seal Stamp (representing Neffi/Tranquility) */}
-        <div className="absolute bottom-6 right-8 flex items-center justify-center opacity-0 scale-150 rotate-[-10deg]"
+        {/* Large Red Ink Seal Stamp (representing Neffi/Tranquility) */}
+        <div className="absolute bottom-12 right-16 flex items-center justify-center opacity-0 scale-150 rotate-[-10deg]"
              style={{ animation: 'stampSeal 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 3.6s forwards' }}>
-          <div className="w-12 h-12 border-[3px] border-red-600/80 rounded-md flex items-center justify-center text-red-600/90 font-black tracking-tight leading-none bg-red-600/5 select-none shadow-[inset_0_0_8px_rgba(220,38,38,0.05)]">
-            <div className="text-center font-serif text-[9px] font-black leading-tight scale-90">
+          <div className="w-16 h-16 border-[4px] border-red-600/80 rounded-lg flex items-center justify-center text-red-600/90 font-black tracking-tight leading-none bg-red-600/5 select-none shadow-[inset_0_0_12px_rgba(220,38,38,0.08)]">
+            <div className="text-center font-serif text-xs font-black leading-tight scale-90">
               宁静<br/>
-              <span className="text-[7px] tracking-widest font-sans font-bold">NEFFI</span>
+              <span className="text-[8px] tracking-widest font-sans font-bold">NEFFI</span>
             </div>
           </div>
         </div>
@@ -3730,7 +3796,7 @@ export default function App() {
         /* Calligraphy intro animation keyframes */
         @keyframes drawText {
           from {
-            stroke-dashoffset: 1000;
+            stroke-dashoffset: 2500;
           }
           to {
             stroke-dashoffset: 0;
@@ -3761,10 +3827,22 @@ export default function App() {
           100% { opacity: 1; transform: scale(1); }
         }
 
+        @keyframes splatPop {
+          0% { transform: scale(0); opacity: 0; }
+          40% { transform: scale(1.2); opacity: 1; }
+          100% { transform: scale(1); opacity: 0.85; }
+        }
+
+        @keyframes splatDrip {
+          0% { transform: scale(0); opacity: 0; stroke-dasharray: 50; stroke-dashoffset: 50; }
+          25% { transform: scale(1.2); opacity: 1; stroke-dashoffset: 50; }
+          100% { transform: scale(1); opacity: 0.85; stroke-dashoffset: 0; }
+        }
+
         @keyframes stampSeal {
-          0% { opacity: 0; transform: scale(2) rotate(-20deg); filter: blur(3px); }
+          0% { opacity: 0; transform: scale(2.5) rotate(-25deg); filter: blur(4px); }
           50% { opacity: 0.8; transform: scale(0.9) rotate(-8deg); filter: blur(0); }
-          100% { opacity: 0.9; transform: scale(1) rotate(-10deg); filter: blur(0); }
+          100% { opacity: 0.95; transform: scale(1) rotate(-10deg); filter: blur(0); }
         }
 
         @keyframes glassShine {
