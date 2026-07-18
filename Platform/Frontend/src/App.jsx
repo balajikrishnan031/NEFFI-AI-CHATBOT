@@ -3346,90 +3346,98 @@ const IntroAnimation = ({ onComplete }) => {
 
             {/* The hidden guide path used for stroke tracing and offset-path */}
             <path id="calligraphyPath" 
-                  d="M 150,280 C 170,220 220,100 240,100 C 240,100 290,320 310,320 C 330,320 380,130 395,120 C 410,110 425,230 425,260 C 425,290 450,280 465,240 C 480,200 470,80 485,80 C 500,80 480,380 490,390 C 500,400 515,300 535,240 C 555,180 545,80 560,80 C 575,80 555,380 565,390 C 575,400 590,300 610,240 C 620,200 640,260 650,280 C 660,300 680,290 700,260" 
+                  d="M 120,270 C 140,210 180,120 195,120 C 195,120 230,300 240,300 C 255,300 280,160 290,150 C 300,140 310,225 310,240 C 310,255 325,255 335,245 C 345,235 340,200 330,205 C 320,210 320,240 335,255 C 342,262 355,250 365,230 C 375,210 370,110 380,110 C 390,110 375,350 382,360 C 390,370 405,290 415,240 C 425,190 420,110 430,110 C 440,110 425,350 432,360 C 440,370 455,290 465,240 C 475,190 480,240 480,260 C 480,280 495,280 505,260 C 525,220 545,190 560,190 C 575,190 550,290 560,300 C 570,310 595,290 605,250 C 615,210 635,190 650,190 C 665,190 640,290 650,300" 
                   fill="none" 
                   stroke="rgba(58, 112, 112, 0.02)" 
                   strokeWidth="14" 
                   strokeLinecap="round" 
                   strokeLinejoin="round" />
 
-            {/* Splatter 1: start of stroke */}
-            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '150px 280px', animation: 'splatPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.6s forwards' }}>
-              <circle cx="150" cy="280" r="4.5" fill="#2C5555" />
-              <circle cx="146" cy="275" r="1.5" fill="#2C5555" />
-              <circle cx="153" cy="284" r="1" fill="#2C5555" />
-              <circle cx="144" cy="283" r="0.8" fill="#2C5555" />
+            {/* Splatter 1: start of N */}
+            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '120px 270px', animation: 'splatPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.6s forwards' }}>
+              <circle cx="120" cy="270" r="4.5" fill="#2C5555" />
+              <circle cx="116" cy="265" r="1.5" fill="#2C5555" />
+              <circle cx="124" cy="274" r="1" fill="#2C5555" />
             </g>
 
             {/* Splatter 2: top curve of N */}
-            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '240px 100px', animation: 'splatPop 0.5s ease-out 1.0s forwards' }}>
-              <circle cx="240" cy="100" r="3" fill="#2C5555" />
-              <circle cx="236" cy="96" r="1" fill="#2C5555" />
-              <circle cx="245" cy="102" r="1.2" fill="#2C5555" />
+            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '195px 120px', animation: 'splatPop 0.5s ease-out 1.0s forwards' }}>
+              <circle cx="195" cy="120" r="4" fill="#2C5555" />
+              <circle cx="191" cy="116" r="1" fill="#2C5555" />
+              <circle cx="200" cy="122" r="1.2" fill="#2C5555" />
             </g>
 
-            {/* Splatter 3: bottom turn of N */}
-            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '310px 320px', animation: 'splatPop 0.5s ease-out 1.5s forwards' }}>
-              <circle cx="310" cy="320" r="4" fill="#2C5555" />
-              <circle cx="304" cy="316" r="1.5" fill="#2C5555" />
-              <circle cx="315" cy="325" r="1" fill="#2C5555" />
+            {/* Splatter 3: loop of E */}
+            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '330px 205px', animation: 'splatPop 0.5s ease-out 1.4s forwards' }}>
+              <circle cx="330" cy="205" r="3.5" fill="#2C5555" />
+              <circle cx="324" cy="201" r="1.2" fill="#2C5555" />
             </g>
 
-            {/* Splatter 4: First 'f' top */}
-            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '485px 80px', animation: 'splatPop 0.5s ease-out 2.0s forwards' }}>
-              <circle cx="485" cy="80" r="3.5" fill="#2C5555" />
-              <circle cx="480" cy="76" r="1.2" fill="#2C5555" />
-              <circle cx="491" cy="83" r="0.8" fill="#2C5555" />
+            {/* Splatter 4: loop of F1 - drip */}
+            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '382px 360px', animation: 'splatDrip 1.5s ease-out 1.8s forwards' }}>
+              <circle cx="382" cy="360" r="5.0" fill="#2C5555" />
+              <path d="M 382,360 Q 381,375 381.5,390" stroke="#2C5555" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+              <circle cx="381.5" cy="392" r="1.5" fill="#2C5555" />
             </g>
 
-            {/* Splatter 5: First 'f' lowest point - drip */}
-            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '490px 390px', animation: 'splatDrip 1.5s ease-out 2.3s forwards' }}>
-              <circle cx="490" cy="390" r="5" fill="#2C5555" />
-              <path d="M 490,390 Q 489,405 489.5,420" stroke="#2C5555" strokeWidth="2.2" strokeLinecap="round" fill="none" />
-              <circle cx="489.5" cy="422" r="1.5" fill="#2C5555" />
-              <circle cx="495" cy="396" r="1" fill="#2C5555" />
+            {/* Splatter 5: loop of F2 - drip */}
+            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '432px 360px', animation: 'splatDrip 1.5s ease-out 2.2s forwards' }}>
+              <circle cx="432" cy="360" r="5.0" fill="#2C5555" />
+              <path d="M 432,360 Q 431,375 431.5,390" stroke="#2C5555" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+              <circle cx="431.5" cy="392" r="1.5" fill="#2C5555" />
             </g>
 
-            {/* Splatter 6: Second 'f' lowest point - drip */}
-            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '565px 390px', animation: 'splatDrip 1.5s ease-out 2.7s forwards' }}>
-              <circle cx="565" cy="390" r="5.5" fill="#2C5555" />
-              <path d="M 565,390 Q 564,408 564.5,425" stroke="#2C5555" strokeWidth="2.4" strokeLinecap="round" fill="none" />
-              <circle cx="564.5" cy="427" r="1.8" fill="#2C5555" />
-              <circle cx="559" cy="385" r="1" fill="#2C5555" />
+            {/* Splatter 6: dot of I */}
+            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '480px 160px', animation: 'splatPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 2.6s forwards' }}>
+              <circle cx="480" cy="160" r="5" fill="#2C5555" />
+              <circle cx="474" cy="154" r="1.5" fill="#2C5555" />
+              <circle cx="486" cy="166" r="1" fill="#2C5555" />
             </g>
 
-            {/* Splatter 7: End sweep */}
-            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '700px 260px', animation: 'splatPop 0.5s ease-out 3.2s forwards' }}>
-              <circle cx="700" cy="260" r="4" fill="#2C5555" />
-              <circle cx="706" cy="256" r="1.2" fill="#2C5555" />
-              <circle cx="694" cy="263" r="1" fill="#2C5555" />
+            {/* Splatter 7: loop of A */}
+            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '560px 300px', animation: 'splatPop 0.5s ease-out 3.0s forwards' }}>
+              <circle cx="560" cy="300" r="4.2" fill="#2C5555" />
+              <circle cx="566" cy="296" r="1.2" fill="#2C5555" />
+            </g>
+
+            {/* Splatter 8: dot of second I */}
+            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '635px 130px', animation: 'splatPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 3.6s forwards' }}>
+              <circle cx="635" cy="130" r="5.5" fill="#2C5555" />
+              <circle cx="627" cy="122" r="1.8" fill="#2C5555" />
+              <circle cx="643" cy="138" r="1.5" fill="#2C5555" />
             </g>
 
             {/* The visible animated handwriting stroke */}
-            <path d="M 150,280 C 170,220 220,100 240,100 C 240,100 290,320 310,320 C 330,320 380,130 395,120 C 410,110 425,230 425,260 C 425,290 450,280 465,240 C 480,200 470,80 485,80 C 500,80 480,380 490,390 C 500,400 515,300 535,240 C 555,180 545,80 560,80 C 575,80 555,380 565,390 C 575,400 590,300 610,240 C 620,200 640,260 650,280 C 660,300 680,290 700,260" 
+            <path d="M 120,270 C 140,210 180,120 195,120 C 195,120 230,300 240,300 C 255,300 280,160 290,150 C 300,140 310,225 310,240 C 310,255 325,255 335,245 C 345,235 340,200 330,205 C 320,210 320,240 335,255 C 342,262 355,250 365,230 C 375,210 370,110 380,110 C 390,110 375,350 382,360 C 390,370 405,290 415,240 C 425,190 420,110 430,110 C 440,110 425,350 432,360 C 440,370 455,290 465,240 C 475,190 480,240 480,260 C 480,280 495,280 505,260 C 525,220 545,190 560,190 C 575,190 550,290 560,300 C 570,310 595,290 605,250 C 615,210 635,190 650,190 C 665,190 640,290 650,300" 
                   fill="none" 
                   stroke="url(#inkGradient)" 
                   strokeWidth="11" 
                   strokeLinecap="round" 
                   strokeLinejoin="round"
                   filter="url(#inkBleed)"
-                  strokeDasharray="2500"
-                  strokeDashoffset="2500"
+                  strokeDasharray="2200"
+                  strokeDashoffset="2200"
                   style={{ animation: 'drawText 3.2s cubic-bezier(0.42, 0, 0.58, 1) 0.6s forwards' }} />
 
-            {/* The animated dot of the 'i' and its splatters */}
-            <g filter="url(#inkBleed)" className="opacity-0 scale-0 origin-center"
-               style={{ transformOrigin: '650px 160px', animation: 'dotPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) 3.6s forwards' }}>
-              <circle cx="650" cy="160" r="7.5" fill="#2C5555" />
-              <circle cx="642" cy="152" r="2.2" fill="#2C5555" />
-              <circle cx="658" cy="168" r="1.8" fill="#2C5555" />
-              <circle cx="655" cy="151" r="1.5" fill="#2C5555" />
-              <circle cx="643" cy="166" r="1" fill="#2C5555" />
+            {/* The Red Calligraphy Seal Stamp inside SVG */}
+            <g className="opacity-0 scale-150 origin-center"
+               style={{
+                 transformOrigin: '720px 340px',
+                 animation: 'stampSeal 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 3.8s forwards'
+               }}>
+              {/* Outer seal border */}
+              <rect x="690" y="310" width="60" height="60" rx="6" fill="none" stroke="rgba(220, 38, 38, 0.9)" strokeWidth="4" />
+              {/* Inward shadow ring */}
+              <rect x="693" y="313" width="54" height="54" rx="3" fill="rgba(220, 38, 38, 0.04)" />
+              {/* Chinese characters "宁静" (Tranquility) */}
+              <text x="720" y="338" fill="rgba(220, 38, 38, 0.95)" fontFamily="serif" fontSize="13" fontWeight="900" textAnchor="middle">宁静</text>
+              {/* English "NEFFI" */}
+              <text x="720" y="356" fill="rgba(220, 38, 38, 0.95)" fontFamily="sans-serif" fontSize="10" fontWeight="800" letterSpacing="1" textAnchor="middle">NEFFI</text>
             </g>
 
             {/* The Calligraphy Brush Tip moving along the path */}
             <g style={{
-                 offsetPath: `path('M 150,280 C 170,220 220,100 240,100 C 240,100 290,320 310,320 C 330,320 380,130 395,120 C 410,110 425,230 425,260 C 425,290 450,280 465,240 C 480,200 470,80 485,80 C 500,80 480,380 490,390 C 500,400 515,300 535,240 C 555,180 545,80 560,80 C 575,80 555,380 565,390 C 575,400 590,300 610,240 C 620,200 640,260 650,280 C 660,300 680,290 700,260')`,
+                 offsetPath: `path('M 120,270 C 140,210 180,120 195,120 C 195,120 230,300 240,300 C 255,300 280,160 290,150 C 300,140 310,225 310,240 C 310,255 325,255 335,245 C 345,235 340,200 330,205 C 320,210 320,240 335,255 C 342,262 355,250 365,230 C 375,210 370,110 380,110 C 390,110 375,350 382,360 C 390,370 405,290 415,240 C 425,190 420,110 430,110 C 440,110 425,350 432,360 C 440,370 455,290 465,240 C 475,190 480,240 480,260 C 480,280 495,280 505,260 C 525,220 545,190 560,190 C 575,190 550,290 560,300 C 570,310 595,290 605,250 C 615,210 635,190 650,190 C 665,190 640,290 650,300')`,
                  animation: 'brushMove 3.2s cubic-bezier(0.42, 0, 0.58, 1) 0.6s forwards',
                  opacity: 0
                }}>
@@ -3445,17 +3453,6 @@ const IntroAnimation = ({ onComplete }) => {
               </g>
             </g>
           </svg>
-        </div>
-
-        {/* Large Red Ink Seal Stamp (representing Neffi/Tranquility) */}
-        <div className="absolute bottom-12 right-16 flex items-center justify-center opacity-0 scale-150 rotate-[-10deg]"
-             style={{ animation: 'stampSeal 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 3.6s forwards' }}>
-          <div className="w-16 h-16 border-[4px] border-red-600/80 rounded-lg flex items-center justify-center text-red-600/90 font-black tracking-tight leading-none bg-red-600/5 select-none shadow-[inset_0_0_12px_rgba(220,38,38,0.08)]">
-            <div className="text-center font-serif text-xs font-black leading-tight scale-90">
-              宁静<br/>
-              <span className="text-[8px] tracking-widest font-sans font-bold">NEFFI</span>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -3796,7 +3793,7 @@ export default function App() {
         /* Calligraphy intro animation keyframes */
         @keyframes drawText {
           from {
-            stroke-dashoffset: 2500;
+            stroke-dashoffset: 1800;
           }
           to {
             stroke-dashoffset: 0;
