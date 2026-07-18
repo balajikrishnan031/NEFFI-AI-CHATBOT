@@ -3208,17 +3208,144 @@ const AdminDashboard = ({ setView }) => {
 };
 
 // ==========================================
+// INTRO OPENING MOTION ANIMATION (Chinese Calligraphy Brush on Glass)
+// ==========================================
+const IntroAnimation = ({ onComplete }) => {
+  const [fadeOut, setFadeOut] = useState(false);
+
+  useEffect(() => {
+    // 4.8 seconds total play, then fade out over 700ms
+    const timer = setTimeout(() => {
+      setFadeOut(true);
+    }, 4800);
+
+    const completeTimer = setTimeout(() => {
+      onComplete();
+    }, 5500);
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(completeTimer);
+    };
+  }, [onComplete]);
+
+  return (
+    <div className={`fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden transition-opacity duration-[700ms] ${fadeOut ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+         style={{
+           backgroundImage: `linear-gradient(135deg, rgba(230, 245, 240, 0.82) 0%, rgba(240, 252, 248, 0.75) 40%, rgba(220, 238, 234, 0.80) 100%), url('/neffi-bg.png')`,
+           backgroundSize: 'cover',
+           backgroundPosition: 'center top'
+         }}>
+      
+      {/* Aurora blurred backgrounds in background */}
+      <div className="absolute -top-10 -left-10 w-[500px] h-[500px] bg-[#8FA989] rounded-full blur-[140px] opacity-40 animate-pulse" style={{ animationDuration: '6s' }}></div>
+      <div className="absolute -bottom-10 -right-10 w-[500px] h-[500px] bg-[#3A7070] rounded-full blur-[140px] opacity-35 animate-pulse" style={{ animationDuration: '8s' }}></div>
+
+      {/* Floating glass panel */}
+      <div className="relative w-[90%] max-w-xl aspect-[1.8/1] rounded-[2.5rem] p-8 flex flex-col items-center justify-center overflow-hidden border border-white/45 bg-white/20 backdrop-blur-3xl shadow-[0_30px_70px_rgba(0,0,0,0.08)] animate-[intro-panel-scale_1.2s_cubic-bezier(0.16,1,0.3,1)_forwards]">
+        
+        {/* Glass reflection sweep */}
+        <div className="absolute top-0 bottom-0 left-[-150%] w-1/2 bg-gradient-to-r from-transparent via-white/25 to-transparent skew-x-[-25deg] pointer-events-none"
+             style={{ animation: 'glassShine 1.8s cubic-bezier(0.19, 1, 0.22, 1) 3.8s forwards' }}></div>
+
+        {/* Dynamic Canvas / SVG Calligraphy */}
+        <div className="relative w-full max-w-md h-40 flex items-center justify-center">
+          <svg viewBox="0 0 280 160" className="w-full h-full">
+            {/* The hidden guide path used for stroke tracing and offset-path */}
+            <path id="calligraphyPath" 
+                  d="M 40,110 C 45,95 55,40 60,40 C 65,40 75,120 80,120 C 85,120 100,50 105,45 C 110,40 115,85 115,100 C 115,115 125,115 130,105 C 135,95 132,80 128,82 C 122,85 120,100 128,110 C 132,115 142,108 148,95 C 154,82 152,30 156,30 C 160,30 156,145 158,150 C 160,155 165,120 172,95 C 178,72 182,30 186,30 C 190,30 186,145 188,150 C 190,155 195,120 202,95 C 205,82 212,100 216,110 C 220,120 228,115 235,105" 
+                  fill="none" 
+                  stroke="rgba(58, 112, 112, 0.04)" 
+                  strokeWidth="8" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" />
+
+            {/* The visible animated handwriting stroke */}
+            <path d="M 40,110 C 45,95 55,40 60,40 C 65,40 75,120 80,120 C 85,120 100,50 105,45 C 110,40 115,85 115,100 C 115,115 125,115 130,105 C 135,95 132,80 128,82 C 122,85 120,100 128,110 C 132,115 142,108 148,95 C 154,82 152,30 156,30 C 160,30 156,145 158,150 C 160,155 165,120 172,95 C 178,72 182,30 186,30 C 190,30 186,145 188,150 C 190,155 195,120 202,95 C 205,82 212,100 216,110 C 220,120 228,115 235,105" 
+                  fill="none" 
+                  stroke="url(#inkGradient)" 
+                  strokeWidth="7" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                  strokeDasharray="1000"
+                  strokeDashoffset="1000"
+                  style={{ animation: 'drawText 3.2s cubic-bezier(0.42, 0, 0.58, 1) 0.6s forwards' }} />
+
+            {/* The animated dot of the 'i' */}
+            <circle cx="216" cy="65" r="4.5" 
+                    fill="#3A7070" 
+                    className="opacity-0 scale-0 origin-center"
+                    style={{ animation: 'dotPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) 3.6s forwards' }} />
+
+            {/* Gradients */}
+            <defs>
+              <linearGradient id="inkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#2C5555" />
+                <stop offset="50%" stopColor="#3A7070" />
+                <stop offset="100%" stopColor="#2C5555" />
+              </linearGradient>
+            </defs>
+
+            {/* The Calligraphy Brush Tip moving along the path */}
+            <g style={{
+                 offsetPath: `path('M 40,110 C 45,95 55,40 60,40 C 65,40 75,120 80,120 C 85,120 100,50 105,45 C 110,40 115,85 115,100 C 115,115 125,115 130,105 C 135,95 132,80 128,82 C 122,85 120,100 128,110 C 132,115 142,108 148,95 C 154,82 152,30 156,30 C 160,30 156,145 158,150 C 160,155 165,120 172,95 C 178,72 182,30 186,30 C 190,30 186,145 188,150 C 190,155 195,120 202,95 C 205,82 212,100 216,110 C 220,120 228,115 235,105')`,
+                 animation: 'brushMove 3.2s cubic-bezier(0.42, 0, 0.58, 1) 0.6s forwards',
+                 opacity: 0
+               }}>
+              {/* Brush tip graphics: origin at point (15, 45) */}
+              <g transform="translate(-15, -45)">
+                {/* Brush hair tip */}
+                <path d="M12,40 C12,40 14,25 15,0 C16,25 18,40 18,40 C18,40 22,43 15,50 C8,43 12,40 12,40 Z" fill="#2d251e" />
+                {/* Ink smudge inside brush */}
+                <path d="M14,40 C14,40 14.5,30 15,12 C15.5,30 16,40 16,40 C16,40 18,41 15,44 C12,41 14,40 14,40 Z" fill="#3A7070" opacity="0.8" />
+                {/* Bamboo handle */}
+                <rect x="14" y="-30" width="2" height="30" fill="#e6c387" />
+              </g>
+            </g>
+          </svg>
+        </div>
+
+        {/* Red Ink Seal Stamp (representing Neffi/Tranquility) */}
+        <div className="absolute bottom-6 right-8 flex items-center justify-center opacity-0 scale-150 rotate-[-10deg]"
+             style={{ animation: 'stampSeal 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 3.6s forwards' }}>
+          <div className="w-12 h-12 border-[3px] border-red-600/80 rounded-md flex items-center justify-center text-red-600/90 font-black tracking-tight leading-none bg-red-600/5 select-none shadow-[inset_0_0_8px_rgba(220,38,38,0.05)]">
+            <div className="text-center font-serif text-[9px] font-black leading-tight scale-90">
+              宁静<br/>
+              <span className="text-[7px] tracking-widest font-sans font-bold">NEFFI</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ==========================================
 // MAIN APP ROUTER
 // ==========================================
 export default function App() {
   const saved = (() => { try { return JSON.parse(localStorage.getItem('neffi_user')); } catch { return null; } })();
   const [view, setView] = useState(saved ? 'patient-dashboard' : 'landing');
   const [userData, setUserData] = useState(saved || null);
+  const [showIntro, setShowIntro] = useState(() => {
+    try {
+      return !sessionStorage.getItem('neffi_intro_seen');
+    } catch {
+      return true;
+    }
+  });
 
   const handleLogout = () => {
     localStorage.removeItem('neffi_user');
     setUserData(null);
     setView('landing');
+  };
+
+  const handleIntroComplete = () => {
+    setShowIntro(false);
+    try {
+      sessionStorage.setItem('neffi_intro_seen', 'true');
+    } catch (e) {}
   };
 
   const viewComponent = () => {
@@ -3523,9 +3650,58 @@ export default function App() {
           left: 125%;
           opacity: 1;
         }
+
+        /* Calligraphy intro animation keyframes */
+        @keyframes drawText {
+          from {
+            stroke-dashoffset: 1000;
+          }
+          to {
+            stroke-dashoffset: 0;
+          }
+        }
+        
+        @keyframes brushMove {
+          0% {
+            offset-distance: 0%;
+            opacity: 0;
+          }
+          1% {
+            opacity: 1;
+          }
+          98% {
+            offset-distance: 100%;
+            opacity: 1;
+          }
+          100% {
+            offset-distance: 100%;
+            opacity: 0;
+          }
+        }
+
+        @keyframes dotPop {
+          0% { opacity: 0; transform: scale(0); }
+          70% { transform: scale(1.3); }
+          100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes stampSeal {
+          0% { opacity: 0; transform: scale(2) rotate(-20deg); filter: blur(3px); }
+          50% { opacity: 0.8; transform: scale(0.9) rotate(-8deg); filter: blur(0); }
+          100% { opacity: 0.9; transform: scale(1) rotate(-10deg); filter: blur(0); }
+        }
+
+        @keyframes glassShine {
+          0% {
+            left: -150%;
+          }
+          100% {
+            left: 150%;
+          }
+        }
       `}</style>
       
-      {viewComponent()}
+      {showIntro ? <IntroAnimation onComplete={handleIntroComplete} /> : viewComponent()}
     </div>
   );
 }
