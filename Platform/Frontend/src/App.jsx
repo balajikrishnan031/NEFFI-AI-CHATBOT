@@ -3342,14 +3342,14 @@ const IntroAnimation = ({ onComplete }) => {
               </filter>
               {/* Custom dry brush filter mapping to referenced font styles */}
               <filter id="dryBrushFilter" x="-20%" y="-20%" width="140%" height="140%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.15 0.02" numOctaves="4" result="noise" />
+                <feTurbulence type="fractalNoise" baseFrequency="0.14 0.02" numOctaves="4" result="noise" />
                 <feColorMatrix type="matrix" in="noise" values="
                   0 0 0 0 0
                   0 0 0 0 0
                   0 0 0 0 0
                   3.8 0 0 0 -1.8
                 " result="dryMask" />
-                <feDisplacementMap in="SourceGraphic" in2="noise" scale="16" xChannelSelector="R" yChannelSelector="G" result="displaced" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="22" xChannelSelector="R" yChannelSelector="G" result="displaced" />
                 <feComposite operator="in" in="displaced" in2="dryMask" />
               </filter>
             </defs>
@@ -3444,17 +3444,17 @@ const IntroAnimation = ({ onComplete }) => {
               <circle cx="724" cy="304" r="1.5" fill="#0C0C0C" />
             </g>
 
-            {/* Rendered Calligraphy strokes for Neffi AI in beautiful spaced layout */}
-            <path id="stroke_n_1" d="M 190,260 C 180,180 195,140 210,110 C 215,95 205,250 200,330 C 197,360 187,370 177,345" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="350" strokeDashoffset="350" style={{ animation: "drawStroke 0.274s linear 0.6s forwards" }} />
-            <path id="stroke_n_2" d="M 210,110 C 235,200 265,315 270,325 C 280,325 288,150 292,110" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="400" strokeDashoffset="400" style={{ animation: "drawStroke 0.312s linear 0.874s forwards" }} />
-            <path id="stroke_effi" d="M 310,270 C 310,210 350,210 350,250 C 350,290 320,290 360,270 C 375,240 385,140 395,90 C 400,65 420,65 410,130 C 390,230 370,370 373,395 C 375,410 390,410 400,380 C 410,340 435,240 445,90 C 450,65 470,65 460,130 C 440,230 420,370 423,395 C 425,410 440,410 450,380 C 460,340 485,250 495,230 C 505,210 520,260 520,280 C 520,300 505,310 535,290" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="1800" strokeDashoffset="1800" style={{ animation: "drawStroke 1.329s linear 1.225s forwards" }} />
-            <path id="stroke_i_dot" d="M 518,155 Q 523,145 520,158" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="50" strokeDashoffset="50" style={{ animation: "drawStroke 0.117s linear 2.554s forwards" }} />
-            <path id="stroke_a_1" d="M 640,110 Q 610,210 585,310" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.274s linear 2.71s forwards" }} />
-            <path id="stroke_a_2" d="M 640,110 Q 665,210 695,310" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.273s linear 2.984s forwards" }} />
-            <path id="stroke_a_3" d="M 605,240 Q 640,245 675,240" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="150" strokeDashoffset="150" style={{ animation: "drawStroke 0.157s linear 3.257s forwards" }} />
-            <path id="stroke_i2_1" d="M 740,110 Q 735,210 730,310" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.274s linear 3.492s forwards" }} />
-            <path id="stroke_i2_2" d="M 720,115 Q 740,112 760,115" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="100" strokeDashoffset="100" style={{ animation: "drawStroke 0.117s linear 3.766s forwards" }} />
-            <path id="stroke_i2_3" d="M 710,310 Q 730,308 750,310" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="100" strokeDashoffset="100" style={{ animation: "drawStroke 0.117s linear 3.883s forwards" }} />
+            {/* Rendered Calligraphy strokes with variable calligraphic weights (up to 60px) */}
+            <path id="stroke_n_1" d="M 190,260 C 180,180 195,140 210,110 C 215,95 205,250 200,330 C 197,360 187,370 177,345" fill="none" stroke="url(#inkGradient)" strokeWidth="45" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="350" strokeDashoffset="350" style={{ animation: "drawStroke 0.274s linear 0.6s forwards" }} />
+            <path id="stroke_n_2" d="M 210,110 C 235,200 265,315 270,325 C 280,325 288,150 292,110" fill="none" stroke="url(#inkGradient)" strokeWidth="60" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="400" strokeDashoffset="400" style={{ animation: "drawStroke 0.312s linear 0.874s forwards" }} />
+            <path id="stroke_effi" d="M 310,270 C 310,210 350,210 350,250 C 350,290 320,290 360,270 C 375,240 385,140 395,90 C 400,65 420,65 410,130 C 390,230 370,370 373,395 C 375,410 390,410 400,380 C 410,340 435,240 445,90 C 450,65 470,65 460,130 C 440,230 420,370 423,395 C 425,410 440,410 450,380 C 460,340 485,250 495,230 C 505,210 520,260 520,280 C 520,300 505,310 535,290" fill="none" stroke="url(#inkGradient)" strokeWidth="38" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="1800" strokeDashoffset="1800" style={{ animation: "drawStroke 1.329s linear 1.225s forwards" }} />
+            <path id="stroke_i_dot" d="M 518,155 Q 523,145 520,158" fill="none" stroke="url(#inkGradient)" strokeWidth="42" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="50" strokeDashoffset="50" style={{ animation: "drawStroke 0.117s linear 2.554s forwards" }} />
+            <path id="stroke_a_1" d="M 640,110 Q 610,210 585,310" fill="none" stroke="url(#inkGradient)" strokeWidth="48" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.274s linear 2.71s forwards" }} />
+            <path id="stroke_a_2" d="M 640,110 Q 665,210 695,310" fill="none" stroke="url(#inkGradient)" strokeWidth="48" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.273s linear 2.984s forwards" }} />
+            <path id="stroke_a_3" d="M 605,240 Q 640,245 675,240" fill="none" stroke="url(#inkGradient)" strokeWidth="36" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="150" strokeDashoffset="150" style={{ animation: "drawStroke 0.157s linear 3.257s forwards" }} />
+            <path id="stroke_i2_1" d="M 740,110 Q 735,210 730,310" fill="none" stroke="url(#inkGradient)" strokeWidth="50" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.274s linear 3.492s forwards" }} />
+            <path id="stroke_i2_2" d="M 720,115 Q 740,112 760,115" fill="none" stroke="url(#inkGradient)" strokeWidth="36" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="100" strokeDashoffset="100" style={{ animation: "drawStroke 0.117s linear 3.766s forwards" }} />
+            <path id="stroke_i2_3" d="M 710,310 Q 730,308 750,310" fill="none" stroke="url(#inkGradient)" strokeWidth="36" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="100" strokeDashoffset="100" style={{ animation: "drawStroke 0.117s linear 3.883s forwards" }} />
 
             {/* The Red Calligraphy Seal Stamp (Oval stamp on the left, matching Dioxide reference) */}
             <g className="opacity-0 origin-center"
