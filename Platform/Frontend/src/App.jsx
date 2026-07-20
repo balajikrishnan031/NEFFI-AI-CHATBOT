@@ -3308,30 +3308,28 @@ const IntroAnimation = ({ onComplete }) => {
   return (
     <div className={`fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden transition-opacity duration-[700ms] ${fadeOut ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
          style={{
-           backgroundImage: `linear-gradient(135deg, rgba(230, 245, 240, 0.52) 0%, rgba(240, 252, 248, 0.45) 40%, rgba(220, 238, 234, 0.50) 100%), url('/neffi-bg.png')`,
-           backgroundSize: 'cover',
-           backgroundPosition: 'center top'
+           backgroundColor: '#EAE9E5', // Organic warm-grey paper background
+           backgroundImage: 'radial-gradient(rgba(0, 0, 0, 0.025) 1px, transparent 0), radial-gradient(rgba(0, 0, 0, 0.015) 2px, transparent 0)',
+           backgroundSize: '16px 16px'
          }}>
       
-      {/* Aurora blurred backgrounds in background */}
-      <div className="absolute -top-10 -left-10 w-[600px] h-[600px] bg-[#8FA989] rounded-full blur-[140px] opacity-35 animate-pulse" style={{ animationDuration: '6s' }}></div>
-      <div className="absolute -bottom-10 -right-10 w-[600px] h-[600px] bg-[#3A7070] rounded-full blur-[140px] opacity-30 animate-pulse" style={{ animationDuration: '8s' }}></div>
+      {/* Dynamic vector noise overlay simulating washi paper organic textures */}
+      <div className="absolute inset-0 opacity-[0.038] pointer-events-none" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")" }} />
 
-      {/* Full-screen glass overlay panel */}
-      <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center p-8 overflow-hidden bg-white/10 backdrop-blur-3xl">
+      {/* Classical ambient scroll border vignette */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle, transparent 50%, rgba(20, 18, 15, 0.08) 100%)' }} />
+
+      {/* Scroll elements container */}
+      <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center p-8 overflow-hidden">
         
-        {/* Full-screen Glass reflection sweep */}
-        <div className="absolute top-0 bottom-0 left-[-150%] w-[80%] bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-25deg] pointer-events-none"
-             style={{ animation: 'glassShine 2.2s cubic-bezier(0.19, 1, 0.22, 1) 3.8s forwards' }}></div>
-
         {/* Dynamic Canvas / SVG Calligraphy */}
         <div className="relative w-full max-w-4xl h-[70vh] flex items-center justify-center">
-          <svg viewBox="0 0 850 500" className="w-full h-full filter drop-shadow-[0_15px_35px_rgba(44,85,85,0.15)]">
+          <svg viewBox="0 0 850 500" className="w-full h-full filter drop-shadow-[0_15px_30px_rgba(0,0,0,0.06)]">
             <defs>
               <linearGradient id="inkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#000000" />
-                <stop offset="50%" stopColor="#1A1A1A" />
-                <stop offset="100%" stopColor="#000000" />
+                <stop offset="60%" stopColor="#1C1C1C" />
+                <stop offset="100%" stopColor="#050505" />
               </linearGradient>
               <linearGradient id="bambooGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="#D4A373" />
@@ -3356,114 +3354,128 @@ const IntroAnimation = ({ onComplete }) => {
               </filter>
             </defs>
 
+            {/* Sumi-e Background Washed Bamboo Leaves (Soft Ink washes) */}
+            <g opacity="0.12" fill="#2E2E2C">
+              {/* Top-Right Branch */}
+              <path d="M 720,50 C 740,45 780,30 810,20 C 780,45 750,60 720,50 Z" />
+              <path d="M 730,60 C 760,65 800,70 830,75 C 790,75 750,70 730,60 Z" />
+              <path d="M 715,40 C 730,25 760,10 790,5 C 760,20 735,35 715,40 Z" />
+              <path d="M 700,20 Q 730,40 750,55" fill="none" stroke="#2E2E2C" strokeWidth="1.5" />
+              
+              {/* Middle-Right Branch */}
+              <path d="M 750,180 C 720,200 680,215 650,225 C 685,210 725,195 750,180 Z" />
+              <path d="M 760,195 C 730,225 690,250 660,265 C 695,245 735,220 760,195 Z" />
+              <path d="M 745,170 C 710,180 670,190 640,195 C 675,185 715,175 745,170 Z" />
+              <path d="M 810,150 Q 770,175 740,190" fill="none" stroke="#2E2E2C" strokeWidth="1.8" />
+              
+              {/* Bottom-Right Branch */}
+              <path d="M 770,340 C 790,360 810,380 830,400 C 800,380 780,360 770,340 Z" />
+              <path d="M 750,320 Q 765,335 780,350" fill="none" stroke="#2E2E2C" strokeWidth="1.5" />
+            </g>
+
+            {/* Left Margin Calligraphy Design Strip */}
+            <g opacity="0.45">
+              {/* Thin Red vertical line */}
+              <line x1="65" y1="160" x2="65" y2="400" stroke="#8B2626" strokeWidth="0.8" />
+              {/* Top cursive characters symbol */}
+              <path d="M 58,120 C 68,120 73,127 65,133 C 58,139 63,147 73,143" fill="none" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" />
+              {/* Vertical Text DESIGN */}
+              <text x="58" y="220" fill="#3A3A3A" fontSize="9" fontWeight="500" letterSpacing="4" fontFamily="sans-serif" style={{ writingMode: 'vertical-rl', textAnchor: 'middle' }}>DESIGN</text>
+              {/* Vertical Bottom Date / Tag */}
+              <text x="58" y="340" fill="#4A4A4A" fontSize="8" fontWeight="400" letterSpacing="1" fontFamily="monospace" style={{ writingMode: 'vertical-rl' }}>2026.07.20 / NEFFI AI CLINICAL ENGINE</text>
+            </g>
+
+            {/* Centered Chinese Quote at the bottom, matching the referenced image */}
+            <text x="425" y="450" fill="rgba(40, 40, 40, 0.72)" fontSize="13.5" fontFamily="'Noto Serif SC', 'STSong', 'SimSun', serif" letterSpacing="3.5" textAnchor="middle">
+              最怕一生碌碌无为，还说平凡可贵
+            </text>
+
             {/* The hidden guide path used for stroke tracing and offset-path */}
             <path id="calligraphyPath" 
-                  d="M 110,130 Q 105,230 100,330 L 110,130 Q 150,230 190,330 L 190,330 Q 192,230 195,130 L 235,130 Q 230,230 225,330 L 235,130 Q 260,128 285,125 L 232,225 Q 255,223 275,220 L 225,330 Q 255,328 290,325 L 330,130 Q 325,230 320,330 L 330,130 Q 355,128 380,125 L 327,225 Q 350,223 370,220 L 420,130 Q 415,230 410,330 L 420,130 Q 445,128 470,125 L 417,225 Q 440,223 460,220 L 510,130 Q 508,230 505,330 L 495,130 L 525,130 L 490,330 L 520,330 L 605,130 Q 585,230 565,330 L 605,130 Q 625,230 645,330 L 580,250 L 630,250 L 695,130 Q 692,230 690,330 L 680,130 L 710,130 L 675,330 L 705,330" 
+                  d="M 190,260 C 180,180 195,140 210,110 C 215,95 205,250 200,330 C 197,360 187,370 177,345 L 210,110 C 235,200 265,315 270,325 C 280,325 288,150 292,110 L 310,270 C 310,210 350,210 350,250 C 350,290 320,290 360,270 C 375,240 385,140 395,90 C 400,65 420,65 410,130 C 390,230 370,370 373,395 C 375,410 390,410 400,380 C 410,340 435,240 445,90 C 450,65 470,65 460,130 C 440,230 420,370 423,395 C 425,410 440,410 450,380 C 460,340 485,250 495,230 C 505,210 520,260 520,280 C 520,300 505,310 535,290 L 518,155 Q 523,145 520,158 L 640,110 Q 610,210 585,310 L 640,110 Q 665,210 695,310 L 605,240 Q 640,245 675,240 L 740,110 Q 735,210 730,310 L 720,115 Q 740,112 760,115 L 710,310 Q 730,308 750,310" 
                   fill="none" 
-                  stroke="rgba(58, 112, 112, 0.01)" 
-                  strokeWidth="14" 
+                  stroke="rgba(0,0,0,0.01)" 
+                  strokeWidth="10" 
                   strokeLinecap="round" 
                   strokeLinejoin="round" />
 
-            {/* Splatter 1: start of N */}
-            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '110px 130px', animation: 'splatPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.6s forwards' }}>
-              <circle cx="110" cy="130" r="5" fill="#0C0C0C" />
-              <circle cx="104" cy="124" r="1.5" fill="#0C0C0C" />
-              <circle cx="116" cy="136" r="1" fill="#0C0C0C" />
+            {/* Splatter 1: Start of N */}
+            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '190px 260px', animation: 'splatPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.6s forwards' }}>
+              <circle cx="190" cy="260" r="5.5" fill="#0C0C0C" />
+              <circle cx="184" cy="254" r="1.5" fill="#0C0C0C" />
             </g>
 
-            {/* Splatter 2: bottom curve of N */}
-            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '190px 330px', animation: 'splatPop 0.5s ease-out 1.0s forwards' }}>
-              <circle cx="190" cy="330" r="5.5" fill="#0C0C0C" />
-              <circle cx="184" cy="324" r="2" fill="#0C0C0C" />
-              <circle cx="198" cy="336" r="1.5" fill="#0C0C0C" />
+            {/* Splatter 2: Bottom sweep of N */}
+            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '200px 330px', animation: 'splatPop 0.5s ease-out 1.0s forwards' }}>
+              <circle cx="200" cy="330" r="5.5" fill="#0C0C0C" />
+              <circle cx="194" cy="324" r="2" fill="#0C0C0C" />
+              <circle cx="208" cy="336" r="1.5" fill="#0C0C0C" />
             </g>
 
-            {/* Splatter 3: middle of E */}
-            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '275px 220px', animation: 'splatPop 0.5s ease-out 1.5s forwards' }}>
-              <circle cx="275" cy="220" r="4.5" fill="#0C0C0C" />
-              <circle cx="269" cy="214" r="1.5" fill="#0C0C0C" />
+            {/* Splatter 3: Loop of f1 */}
+            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '373px 395px', animation: 'splatDrip 1.5s ease-out 1.8s forwards' }}>
+              <circle cx="373" cy="395" r="6.5" fill="#0C0C0C" />
+              <circle cx="365" cy="389" r="2.5" fill="#0C0C0C" />
+              <path d="M 373,395 Q 371,415 372,435" stroke="#0C0C0C" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+              <circle cx="372" cy="439" r="1.5" fill="#0C0C0C" />
             </g>
 
-            {/* Splatter 4: loop of F1 - drip */}
-            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '320px 330px', animation: 'splatDrip 1.5s ease-out 2.0s forwards' }}>
-              <circle cx="320" cy="330" r="6.5" fill="#0C0C0C" />
-              <circle cx="312" cy="324" r="2.5" fill="#0C0C0C" />
-              <path d="M 320,330 Q 318,350 319,370" stroke="#0C0C0C" strokeWidth="2.8" strokeLinecap="round" fill="none" />
-              <circle cx="319" cy="374" r="1.5" fill="#0C0C0C" />
+            {/* Splatter 4: Dot of i */}
+            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '520px 155px', animation: 'splatPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 2.6s forwards' }}>
+              <circle cx="520" cy="155" r="5" fill="#0C0C0C" />
+              <circle cx="514" cy="149" r="1.5" fill="#0C0C0C" />
             </g>
 
-            {/* Splatter 5: loop of F2 - drip */}
-            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '410px 330px', animation: 'splatDrip 1.5s ease-out 2.4s forwards' }}>
-              <circle cx="410" cy="330" r="6.5" fill="#0C0C0C" />
-              <circle cx="403" cy="324" r="2" fill="#0C0C0C" />
-              <path d="M 410,330 Q 408,350 409,370" stroke="#0C0C0C" strokeWidth="2.8" strokeLinecap="round" fill="none" />
-              <circle cx="409" cy="374" r="1.5" fill="#0C0C0C" />
+            {/* Splatter 5: A bottom left */}
+            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '585px 310px', animation: 'splatPop 0.5s ease-out 3.0s forwards' }}>
+              <circle cx="585" cy="310" r="5" fill="#0C0C0C" />
+              <circle cx="591" cy="304" r="1.5" fill="#0C0C0C" />
             </g>
 
-            {/* Splatter 6: dot of first I */}
-            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '548.5px 142.5px', animation: 'splatPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 2.6s forwards' }}>
-              <circle cx="548.5" cy="142.5" r="4.5" fill="#0C0C0C" />
-              <circle cx="542.5" cy="136.5" r="1.5" fill="#0C0C0C" />
+            {/* Splatter 6: A bottom right */}
+            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '695px 310px', animation: 'splatPop 0.5s ease-out 3.4s forwards' }}>
+              <circle cx="695" cy="310" r="5" fill="#0C0C0C" />
+              <circle cx="701" cy="304" r="1.5" fill="#0C0C0C" />
             </g>
 
-            {/* Splatter 7: loop of A */}
-            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '652.5px 324.5px', animation: 'splatPop 0.5s ease-out 3.0s forwards' }}>
-              <circle cx="652.5" cy="324.5" r="5" fill="#0C0C0C" />
-              <circle cx="659.5" cy="318.5" r="1.5" fill="#0C0C0C" />
+            {/* Splatter 7: I bottom */}
+            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '730px 310px', animation: 'splatPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 4.0s forwards' }}>
+              <circle cx="730" cy="310" r="5" fill="#0C0C0C" />
+              <circle cx="724" cy="304" r="1.5" fill="#0C0C0C" />
             </g>
 
-            {/* Splatter 8: dot of second I */}
-            <g filter="url(#inkBleed)" className="opacity-0 origin-center" style={{ transformOrigin: '750px 103.5px', animation: 'splatPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 3.4s forwards' }}>
-              <path d="M 750,103.5 Q 760,93 762,103 Q 754,113 750,103.5 Z" fill="#0C0C0C" />
-              <circle cx="750" cy="103.5" r="5" fill="#0C0C0C" />
-              <circle cx="740" cy="96.5" r="1.5" fill="#0C0C0C" />
-            </g>
+            {/* Rendered Calligraphy strokes for Neffi AI in beautiful spaced layout */}
+            <path id="stroke_n_1" d="M 190,260 C 180,180 195,140 210,110 C 215,95 205,250 200,330 C 197,360 187,370 177,345" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="350" strokeDashoffset="350" style={{ animation: "drawStroke 0.274s linear 0.6s forwards" }} />
+            <path id="stroke_n_2" d="M 210,110 C 235,200 265,315 270,325 C 280,325 288,150 292,110" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="400" strokeDashoffset="400" style={{ animation: "drawStroke 0.312s linear 0.874s forwards" }} />
+            <path id="stroke_effi" d="M 310,270 C 310,210 350,210 350,250 C 350,290 320,290 360,270 C 375,240 385,140 395,90 C 400,65 420,65 410,130 C 390,230 370,370 373,395 C 375,410 390,410 400,380 C 410,340 435,240 445,90 C 450,65 470,65 460,130 C 440,230 420,370 423,395 C 425,410 440,410 450,380 C 460,340 485,250 495,230 C 505,210 520,260 520,280 C 520,300 505,310 535,290" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="1800" strokeDashoffset="1800" style={{ animation: "drawStroke 1.329s linear 1.225s forwards" }} />
+            <path id="stroke_i_dot" d="M 518,155 Q 523,145 520,158" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="50" strokeDashoffset="50" style={{ animation: "drawStroke 0.117s linear 2.554s forwards" }} />
+            <path id="stroke_a_1" d="M 640,110 Q 610,210 585,310" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.274s linear 2.71s forwards" }} />
+            <path id="stroke_a_2" d="M 640,110 Q 665,210 695,310" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.273s linear 2.984s forwards" }} />
+            <path id="stroke_a_3" d="M 605,240 Q 640,245 675,240" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="150" strokeDashoffset="150" style={{ animation: "drawStroke 0.157s linear 3.257s forwards" }} />
+            <path id="stroke_i2_1" d="M 740,110 Q 735,210 730,310" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.274s linear 3.492s forwards" }} />
+            <path id="stroke_i2_2" d="M 720,115 Q 740,112 760,115" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="100" strokeDashoffset="100" style={{ animation: "drawStroke 0.117s linear 3.766s forwards" }} />
+            <path id="stroke_i2_3" d="M 710,310 Q 730,308 750,310" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="100" strokeDashoffset="100" style={{ animation: "drawStroke 0.117s linear 3.883s forwards" }} />
 
-            {/* Rendered Calligraphy strokes for NEFFI AI */}
-            <path id="stroke_n_1" d="M 110,130 Q 105,230 100,330" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.152s linear 0.6s forwards" }} />
-            <path id="stroke_n_2" d="M 110,130 Q 150,230 190,330" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.183s linear 0.752s forwards" }} />
-            <path id="stroke_n_3" d="M 190,330 Q 192,230 195,130" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.153s linear 0.935s forwards" }} />
-            <path id="stroke_e_1" d="M 235,130 Q 230,230 225,330" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.152s linear 1.179s forwards" }} />
-            <path id="stroke_e_2" d="M 235,130 Q 260,128 285,125" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.092s linear 1.331s forwards" }} />
-            <path id="stroke_e_3" d="M 232,225 Q 255,223 275,220" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.085s linear 1.441s forwards" }} />
-            <path id="stroke_e_4" d="M 225,330 Q 255,328 290,325" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.103s linear 1.545s forwards" }} />
-            <path id="stroke_f1_1" d="M 330,130 Q 325,230 320,330" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.152s linear 1.728s forwards" }} />
-            <path id="stroke_f1_2" d="M 330,130 Q 355,128 380,125" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.091s linear 1.88s forwards" }} />
-            <path id="stroke_f1_3" d="M 327,225 Q 350,223 370,220" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.085s linear 1.99s forwards" }} />
-            <path id="stroke_f2_1" d="M 420,130 Q 415,230 410,330" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.153s linear 2.154s forwards" }} />
-            <path id="stroke_f2_2" d="M 420,130 Q 445,128 470,125" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.091s linear 2.307s forwards" }} />
-            <path id="stroke_f2_3" d="M 417,225 Q 440,223 460,220" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.086s linear 2.416s forwards" }} />
-            <path id="stroke_i1_1" d="M 510,130 Q 508,230 505,330" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.152s linear 2.581s forwards" }} />
-            <path id="stroke_i1_2" d="M 495,130 L 525,130" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.073s linear 2.733s forwards" }} />
-            <path id="stroke_i1_3" d="M 490,330 L 520,330" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.073s linear 2.825s forwards" }} />
-            <path id="stroke_a_1" d="M 605,130 Q 585,230 565,330" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.153s linear 2.977s forwards" }} />
-            <path id="stroke_a_2" d="M 605,130 Q 625,230 645,330" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.152s linear 3.13s forwards" }} />
-            <path id="stroke_a_3" d="M 580,250 L 630,250" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.091s linear 3.282s forwards" }} />
-            <path id="stroke_i2_1" d="M 695,130 Q 692,230 690,330" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.152s linear 3.465s forwards" }} />
-            <path id="stroke_i2_2" d="M 680,130 L 710,130" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.073s linear 3.617s forwards" }} />
-            <path id="stroke_i2_3" d="M 675,330 L 705,330" fill="none" stroke="url(#inkGradient)" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round" filter="url(#dryBrushFilter)" strokeDasharray="300" strokeDashoffset="300" style={{ animation: "drawStroke 0.073s linear 3.709s forwards" }} />
-
-            {/* The Red Calligraphy Seal Stamp inside SVG */}
-            <g className="opacity-0 scale-150 origin-center"
+            {/* The Red Calligraphy Seal Stamp (Oval stamp on the left, matching Dioxide reference) */}
+            <g className="opacity-0 origin-center"
                style={{
-                 transformOrigin: '770px 330px',
-                 animation: 'stampSeal 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 3.8s forwards'
+                 transformOrigin: '118px 222px',
+                 animation: 'stampSeal 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 4.0s forwards'
                }}>
-              {/* Outer seal border */}
-              <rect x="740" y="300" width="60" height="60" rx="6" fill="none" stroke="rgba(220, 38, 38, 0.9)" strokeWidth="4" />
+              {/* Outer vertical oval border */}
+              <rect x="100" y="190" width="36" height="65" rx="18" fill="none" stroke="rgba(200, 30, 30, 0.88)" strokeWidth="3.2" />
               {/* Inward shadow ring */}
-              <rect x="743" y="303" width="54" height="54" rx="3" fill="rgba(220, 38, 38, 0.04)" />
-              {/* Chinese characters "宁静" (Tranquility) */}
-              <text x="770" y="328" fill="rgba(220, 38, 38, 0.95)" fontFamily="serif" fontSize="13" fontWeight="900" textAnchor="middle">宁静</text>
-              {/* English "NEFFI AI" */}
-              <text x="770" y="346" fill="rgba(220, 38, 38, 0.95)" fontFamily="sans-serif" fontSize="9" fontWeight="800" letterSpacing="0.5" textAnchor="middle">NEFFI AI</text>
+              <rect x="103" y="193" width="30" height="59" rx="15" fill="rgba(200, 30, 30, 0.05)" />
+              {/* Chinese character "宁" (Tranquility) */}
+              <text x="118" y="222" fill="rgba(200, 30, 30, 0.9)" fontFamily="serif" fontSize="12" fontWeight="900" textAnchor="middle">宁</text>
+              {/* Chinese character "静" (Peace) */}
+              <text x="118" y="240" fill="rgba(200, 30, 30, 0.9)" fontFamily="serif" fontSize="12" fontWeight="900" textAnchor="middle">静</text>
             </g>
 
             {/* The Calligraphy Brush Tip moving along the path */}
             <g style={{
-                 offsetPath: `path('M 110,130 Q 105,230 100,330 L 110,130 Q 150,230 190,330 L 190,330 Q 192,230 195,130 L 235,130 Q 230,230 225,330 L 235,130 Q 260,128 285,125 L 232,225 Q 255,223 275,220 L 225,330 Q 255,328 290,325 L 330,130 Q 325,230 320,330 L 330,130 Q 355,128 380,125 L 327,225 Q 350,223 370,220 L 420,130 Q 415,230 410,330 L 420,130 Q 445,128 470,125 L 417,225 Q 440,223 460,220 L 510,130 Q 508,230 505,330 L 495,130 L 525,130 L 490,330 L 520,330 L 605,130 Q 585,230 565,330 L 605,130 Q 625,230 645,330 L 580,250 L 630,250 L 695,130 Q 692,230 690,330 L 680,130 L 710,130 L 675,330 L 705,330')`,
-                 animation: 'brushMove 3.2s cubic-bezier(0.42, 0, 0.58, 1) 0.6s forwards',
+                 offsetPath: `path('M 190,260 C 180,180 195,140 210,110 C 215,95 205,250 200,330 C 197,360 187,370 177,345 L 210,110 C 235,200 265,315 270,325 C 280,325 288,150 292,110 L 310,270 C 310,210 350,210 350,250 C 350,290 320,290 360,270 C 375,240 385,140 395,90 C 400,65 420,65 410,130 C 390,230 370,370 373,395 C 375,410 390,410 400,380 C 410,340 435,240 445,90 C 450,65 470,65 460,130 C 440,230 420,370 423,395 C 425,410 440,410 450,380 C 460,340 485,250 495,230 C 505,210 520,260 520,280 C 520,300 505,310 535,290 L 518,155 Q 523,145 520,158 L 640,110 Q 610,210 585,310 L 640,110 Q 665,210 695,310 L 605,240 Q 640,245 675,240 L 740,110 Q 735,210 730,310 L 720,115 Q 740,112 760,115 L 710,310 Q 730,308 750,310')`,
+                 animation: 'brushMove 3.4s cubic-bezier(0.42, 0, 0.58, 1) 0.6s forwards',
                  opacity: 0
                }}>
               {/* Brush tip graphics: scaled up and designed like a large wood/bamboo calligraphy brush */}
@@ -3817,9 +3829,6 @@ export default function App() {
 
         /* Calligraphy intro animation keyframes */
         @keyframes drawStroke {
-          from {
-            stroke-dashoffset: 300;
-          }
           to {
             stroke-dashoffset: 0;
           }
