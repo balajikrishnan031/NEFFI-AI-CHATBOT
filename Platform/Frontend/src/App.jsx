@@ -3374,13 +3374,13 @@ const IntroAnimation = ({ onComplete }) => {
             </g>
 
             {/* Left Margin Calligraphy Design Strip */}
-            <g opacity="0.45">
+            <g opacity="0.65">
+              {/* Large top cursive calligraphy character "墨" (Ink Art), matching Dioxide reference */}
+              <text x="58" y="132" fill="#1A1A1A" fontSize="24" fontFamily="'Noto Serif SC', 'STSong', serif" fontWeight="900" textAnchor="middle">墨</text>
               {/* Thin Red vertical line */}
-              <line x1="65" y1="160" x2="65" y2="400" stroke="#8B2626" strokeWidth="0.8" />
-              {/* Top cursive characters symbol */}
-              <path d="M 58,120 C 68,120 73,127 65,133 C 58,139 63,147 73,143" fill="none" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" />
+              <line x1="65" y1="145" x2="65" y2="400" stroke="#8B2626" strokeWidth="0.8" />
               {/* Vertical Text DESIGN */}
-              <text x="58" y="220" fill="#3A3A3A" fontSize="9" fontWeight="500" letterSpacing="4" fontFamily="sans-serif" style={{ writingMode: 'vertical-rl', textAnchor: 'middle' }}>DESIGN</text>
+              <text x="58" y="225" fill="#3A3A3A" fontSize="9" fontWeight="500" letterSpacing="4" fontFamily="sans-serif" style={{ writingMode: 'vertical-rl', textAnchor: 'middle' }}>DESIGN</text>
               {/* Vertical Bottom Date / Tag */}
               <text x="58" y="340" fill="#4A4A4A" fontSize="8" fontWeight="400" letterSpacing="1" fontFamily="monospace" style={{ writingMode: 'vertical-rl' }}>2026.07.20 / NEFFI AI CLINICAL ENGINE</text>
             </g>
@@ -3472,14 +3472,14 @@ const IntroAnimation = ({ onComplete }) => {
               <text x="118" y="240" fill="rgba(200, 30, 30, 0.9)" fontFamily="serif" fontSize="12" fontWeight="900" textAnchor="middle">静</text>
             </g>
 
-            {/* The Calligraphy Brush Tip moving along the path */}
+            {/* The Calligraphy Brush Tip moving along the path with 3D handwriting tilt */}
             <g style={{
                  offsetPath: `path('M 190,260 C 180,180 195,140 210,110 C 215,95 205,250 200,330 C 197,360 187,370 177,345 L 210,110 C 235,200 265,315 270,325 C 280,325 288,150 292,110 L 310,270 C 310,210 350,210 350,250 C 350,290 320,290 360,270 C 375,240 385,140 395,90 C 400,65 420,65 410,130 C 390,230 370,370 373,395 C 375,410 390,410 400,380 C 410,340 435,240 445,90 C 450,65 470,65 460,130 C 440,230 420,370 423,395 C 425,410 440,410 450,380 C 460,340 485,250 495,230 C 505,210 520,260 520,280 C 520,300 505,310 535,290 L 518,155 Q 523,145 520,158 L 640,110 Q 610,210 585,310 L 640,110 Q 665,210 695,310 L 605,240 Q 640,245 675,240 L 740,110 Q 735,210 730,310 L 720,115 Q 740,112 760,115 L 710,310 Q 730,308 750,310')`,
                  animation: 'brushMove 3.4s cubic-bezier(0.42, 0, 0.58, 1) 0.6s forwards',
                  opacity: 0
                }}>
-              {/* Brush tip graphics: scaled up and designed like a large wood/bamboo calligraphy brush */}
-              <g transform="translate(-25, -75) scale(2.45)">
+              {/* Brush tip graphics: scaled up with dynamic tilt and sway animation */}
+              <g style={{ animation: 'brushSway 3.4s ease-in-out 0.6s infinite alternate' }} transform="translate(-25, -75) scale(2.45)">
                 {/* Bamboo Handle */}
                 <path d="M13,-40 L17,-40 L16.5,25 L13.5,25 Z" fill="url(#bambooGradient)" />
                 <rect x="13.5" y="25" width="3" height="4" fill="#1a1a1a" />
@@ -3850,6 +3850,14 @@ export default function App() {
             offset-distance: 100%;
             opacity: 0;
           }
+        }
+
+        @keyframes brushSway {
+          0% { transform: translate(-25px, -75px) scale(2.45) rotate(0deg); }
+          25% { transform: translate(-25px, -75px) scale(2.45) rotate(-14deg); }
+          50% { transform: translate(-25px, -75px) scale(2.45) rotate(12deg); }
+          75% { transform: translate(-25px, -75px) scale(2.45) rotate(-18deg); }
+          100% { transform: translate(-25px, -75px) scale(2.45) rotate(0deg); }
         }
 
         @keyframes dotPop {
