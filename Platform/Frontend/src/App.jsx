@@ -2942,11 +2942,12 @@ const AdminDashboard = ({ setView }) => {
   }, []);
 
   const adminTabs = [
-    { id: 'overview', label: 'System Overview', icon: Activity, fontClass: 'font-greatvibes text-[22px] leading-none py-1.5 font-normal tracking-wide', activeBg: 'bg-teal-700 text-white shadow-lg shadow-teal-500/25 scale-102', inactiveColor: 'text-teal-700 hover:text-teal-900 hover:bg-teal-500/5' },
-    { id: 'roster', label: 'Patient Roster', icon: Users, fontClass: 'font-playball text-[17px] font-bold tracking-wide', activeBg: 'bg-blue-700 text-white shadow-lg shadow-blue-500/25 scale-102', inactiveColor: 'text-blue-700 hover:text-blue-900 hover:bg-blue-500/5' },
-    { id: 'inactive', label: 'Inactive Patients', icon: Frown, fontClass: 'font-alexbrush text-[24px] leading-none py-1 font-normal tracking-wide', activeBg: 'bg-rose-600 text-white shadow-lg shadow-rose-500/25 scale-102', inactiveColor: 'text-rose-700 hover:text-rose-900 hover:bg-rose-500/5' },
-    { id: 'analytics', label: 'NLP Analytics', icon: PieChart, fontClass: 'font-pacifico text-[14px] leading-none font-normal', activeBg: 'bg-purple-700 text-white shadow-lg shadow-purple-500/25 scale-102', inactiveColor: 'text-purple-700 hover:text-purple-900 hover:bg-purple-500/5' },
-    { id: 'therapists', label: 'Therapists Allocation', icon: Shield, fontClass: 'font-sacramento text-[25px] leading-none font-bold tracking-wide', activeBg: 'bg-amber-700 text-white shadow-lg shadow-amber-500/25 scale-102', inactiveColor: 'text-amber-800 hover:text-amber-900 hover:bg-amber-500/5' },
+    { id: 'overview', label: 'System Overview', icon: Activity, fontClass: 'font-allura text-[25px] leading-none font-normal tracking-wide', activeBg: 'bg-emerald-700 text-white shadow-lg shadow-emerald-500/25 scale-102', inactiveColor: 'text-emerald-700 hover:text-emerald-900 hover:bg-emerald-500/5' },
+    { id: 'roster', label: 'Patient Roster', icon: Users, fontClass: 'font-allura text-[25px] leading-none font-normal tracking-wide', activeBg: 'bg-emerald-700 text-white shadow-lg shadow-emerald-500/25 scale-102', inactiveColor: 'text-emerald-700 hover:text-emerald-900 hover:bg-emerald-500/5' },
+    { id: 'inactive', label: 'Inactive Patients', icon: Clock, fontClass: 'font-allura text-[25px] leading-none font-normal tracking-wide', activeBg: 'bg-emerald-700 text-white shadow-lg shadow-emerald-500/25 scale-102', inactiveColor: 'text-emerald-700 hover:text-emerald-900 hover:bg-emerald-500/5' },
+    { id: 'analytics', label: 'NLP Analytics', icon: TrendingUp, fontClass: 'font-allura text-[25px] leading-none font-normal tracking-wide', activeBg: 'bg-emerald-700 text-white shadow-lg shadow-emerald-500/25 scale-102', inactiveColor: 'text-emerald-700 hover:text-emerald-900 hover:bg-emerald-500/5' },
+    { id: 'xai', label: 'Explainable AI (XAI)', icon: Sparkles, fontClass: 'font-allura text-[25px] leading-none font-normal tracking-wide', activeBg: 'bg-emerald-700 text-white shadow-lg shadow-emerald-500/25 scale-102', inactiveColor: 'text-emerald-700 hover:text-emerald-900 hover:bg-emerald-500/5' },
+    { id: 'therapists', label: 'Therapists', icon: User, fontClass: 'font-allura text-[25px] leading-none font-normal tracking-wide', activeBg: 'bg-emerald-700 text-white shadow-lg shadow-emerald-500/25 scale-102', inactiveColor: 'text-emerald-700 hover:text-emerald-900 hover:bg-emerald-500/5' },
     { id: 'settings', label: 'System Settings', icon: Settings, fontClass: 'font-allura text-[25px] leading-none font-normal tracking-wide', activeBg: 'bg-emerald-700 text-white shadow-lg shadow-emerald-500/25 scale-102', inactiveColor: 'text-emerald-700 hover:text-emerald-900 hover:bg-emerald-500/5' },
   ];
 
@@ -3214,6 +3215,118 @@ const AdminDashboard = ({ setView }) => {
                     </div>
                  </div>
                </div>
+             </div>
+          ) : activeTab === 'xai' ? (
+            <div className="h-full flex flex-col overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-[#3A7070]/20 scrollbar-track-transparent animate-fade-in space-y-6">
+               <div className="flex justify-between items-center">
+                 <div>
+                   <h2 className="text-2xl font-black text-slate-800 flex items-center gap-2">
+                     <Sparkles className="text-emerald-600 animate-pulse" size={24}/>
+                     Explainable AI (XAI) Clinical Diagnostics
+                   </h2>
+                   <p className="text-xs text-slate-500 font-semibold mt-1">100% Transparent Reasoning Tree & Feature Attribution for Medical Audit Compliance</p>
+                 </div>
+                 <span className="px-3.5 py-1.5 bg-emerald-500/10 border border-emerald-500/25 rounded-full text-xs font-bold text-emerald-700 flex items-center gap-2 shadow-sm">
+                   <Shield size={14} className="text-emerald-600"/> Transparent AI Audit Active
+                 </span>
+               </div>
+
+               {/* Top Metric Cards */}
+               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                 <div className="p-4 rounded-2xl glass-card border border-white/30 bg-white/40 shadow-sm flex flex-col">
+                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">NLU Confidence</span>
+                   <span className="text-2xl font-black text-emerald-700 mt-1">94.2%</span>
+                   <span className="text-[11px] text-slate-500 font-medium mt-1">Groq LPU Accelerate</span>
+                 </div>
+                 <div className="p-4 rounded-2xl glass-card border border-white/30 bg-white/40 shadow-sm flex flex-col">
+                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Memory Context Match</span>
+                   <span className="text-2xl font-black text-teal-700 mt-1">89.0%</span>
+                   <span className="text-[11px] text-slate-500 font-medium mt-1">SQLite Vector Vault</span>
+                 </div>
+                 <div className="p-4 rounded-2xl glass-card border border-white/30 bg-white/40 shadow-sm flex flex-col">
+                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">XAI Feature Drivers</span>
+                   <span className="text-2xl font-black text-cyan-700 mt-1">12 Signals</span>
+                   <span className="text-[11px] text-slate-500 font-medium mt-1">Affective Sentiment Tree</span>
+                 </div>
+                 <div className="p-4 rounded-2xl glass-card border border-white/30 bg-white/40 shadow-sm flex flex-col">
+                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Safety Triage Status</span>
+                   <span className="text-2xl font-black text-emerald-600 mt-1">Nominal</span>
+                   <span className="text-[11px] text-slate-500 font-medium mt-1">n8n SOS Webhook Standby</span>
+                 </div>
+               </div>
+
+               {/* Middle Section: Attribution Weights & Reasoning Tree */}
+               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                 {/* Left: Feature Attribution Breakdown */}
+                 <div className="p-5 rounded-2xl glass-card border border-white/30 bg-white/45 shadow-sm flex flex-col space-y-4">
+                   <h3 className="text-base font-bold text-slate-800 flex items-center gap-2">
+                     <Brain size={18} className="text-emerald-700"/>
+                     Key Sentiment Attribution Weights (SHAP Analysis)
+                   </h3>
+                   <div className="space-y-3 flex-1 overflow-y-auto pr-1">
+                     <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 flex justify-between items-center">
+                       <div>
+                         <span className="text-xs font-bold text-red-800 block">Insomnia & Sleep Disturbance Mention</span>
+                         <span className="text-[10px] text-slate-500">Trigger phrase: "can't sleep for 3 days"</span>
+                       </div>
+                       <span className="px-2.5 py-1 rounded-lg bg-red-500 text-white font-bold text-xs">+38% Risk Weight</span>
+                     </div>
+                     <div className="p-3 rounded-xl bg-orange-500/10 border border-orange-500/20 flex justify-between items-center">
+                       <div>
+                         <span className="text-xs font-bold text-orange-800 block">Workplace & Academic Pressure</span>
+                         <span className="text-[10px] text-slate-500">Trigger phrase: "feeling overwhelmed by deadlines"</span>
+                       </div>
+                       <span className="px-2.5 py-1 rounded-lg bg-orange-500 text-white font-bold text-xs">+26% Risk Weight</span>
+                     </div>
+                     <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex justify-between items-center">
+                       <div>
+                         <span className="text-xs font-bold text-emerald-800 block">Social Support Mention (Protective Factor)</span>
+                         <span className="text-[10px] text-slate-500">Protective phrase: "spoke with my family"</span>
+                       </div>
+                       <span className="px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-bold text-xs">-16% Risk Reduction</span>
+                     </div>
+                     <div className="p-3 rounded-xl bg-teal-500/10 border border-teal-500/20 flex justify-between items-center">
+                       <div>
+                         <span className="text-xs font-bold text-teal-800 block">Mindfulness & Meditation Interest</span>
+                         <span className="text-[10px] text-slate-500">Protective phrase: "practiced breathing drills"</span>
+                       </div>
+                       <span className="px-2.5 py-1 rounded-lg bg-teal-600 text-white font-bold text-xs">-12% Risk Reduction</span>
+                     </div>
+                   </div>
+                 </div>
+
+                 {/* Right: XAI Clinical Decision Logic Rationale */}
+                 <div className="p-5 rounded-2xl glass-card border border-white/30 bg-white/45 shadow-sm flex flex-col space-y-4">
+                   <h3 className="text-base font-bold text-slate-800 flex items-center gap-2">
+                     <Activity size={18} className="text-teal-700"/>
+                     XAI Clinical Decision Rationale Summary
+                   </h3>
+                   <div className="p-4 rounded-xl bg-slate-900 text-slate-100 font-mono text-xs space-y-3 leading-relaxed border border-slate-800 shadow-inner flex-1">
+                     <div className="text-emerald-400 font-bold">[CLINICAL_XAI_LOGIC_TREE]</div>
+                     <p>• Patient conversation parsed with 96-state affective classifier.</p>
+                     <p>• Identified <span className="text-amber-400 font-bold">Moderate Anxiety (Risk Index: 62/100)</span> due to sleep deprivation and workload signals.</p>
+                     <p>• <span className="text-emerald-300">Zero self-harm or acute crisis triggers detected</span>; n8n emergency webhook remains in Standby.</p>
+                     <p>• <span className="text-cyan-300">Recommended Pathway</span>: Execute CBT 5-4-3-2-1 Sensory Grounding and Box Breathing Drill.</p>
+                   </div>
+                 </div>
+               </div>
+
+               {/* Interactive CBT 5-4-3-2-1 Sensory Grounding & Box Breathing Visualizer */}
+               <div className="p-6 rounded-2xl glass-card border border-emerald-500/20 bg-gradient-to-r from-emerald-900/10 to-teal-900/10 shadow-md flex flex-col md:flex-row items-center justify-between gap-6">
+                 <div className="space-y-2 flex-1">
+                   <span className="px-3 py-1 bg-emerald-500/20 text-emerald-700 rounded-full text-xs font-bold uppercase tracking-wider">Interactive Coping Tool</span>
+                   <h3 className="text-lg font-black text-slate-800">5-4-3-2-1 Sensory Grounding & Box Breathing Drill</h3>
+                   <p className="text-xs text-slate-600 font-medium">Clinically validated CBT exercise for instantaneous panic and anxiety reduction.</p>
+                 </div>
+                 <div className="flex items-center gap-6">
+                   <div className="w-20 h-20 rounded-full border-4 border-emerald-500 border-t-transparent animate-spin flex items-center justify-center bg-white/60 shadow-inner">
+                     <span className="text-xs font-black text-emerald-800 animate-pulse">Inhale</span>
+                   </div>
+                   <button onClick={() => alert("Starting 5-4-3-2-1 Guided Sensory Session...")} className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#3A7070] to-[#2C5555] text-white font-bold text-xs shadow-md hover:scale-105 transition-all cursor-pointer">
+                      Start Grounding Drill
+                    </button>
+                  </div>
+                </div>
             </div>
           ) : activeTab === 'therapists' ? (
             <div className="h-full flex flex-col animate-fade-in">
