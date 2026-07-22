@@ -95,8 +95,18 @@ def trigger_sos_alert(patient_id: str, message: str, clinical_state: str):
         "patient_id": patient_id,
         "alert_type": "SOS_CRISIS",
         "clinical_state": clinical_state,
-        "trigger_message": message
+        "trigger_message": message,
+        "timestamp": datetime.utcnow().isoformat()
     }
+    # Local file fallback logging for medical auditing and fail-safety compliance
+    try:
+        log_path = os.path.join(os.path.dirname(__file__), "emergency_alerts.log")
+        with open(log_path, "a", encoding="utf-8") as f:
+            f.write(f"[{payload['timestamp']}] PATIENT: {patient_id} | STATE: {clinical_state} | MESSAGE: {message}\n")
+        print(f"[EMERGENCY FALLBACK LOGGED] Patient: {patient_id}")
+    except Exception as log_err:
+        print(f"[EMERGENCY LOG WRITER FAILED] {log_err}")
+
     try:
         requests.post(N8N_ALERT_WEBHOOK, json=payload, timeout=5)
         print(f"[SOS ALERT SENT] Patient: {patient_id} | State: {clinical_state}")
@@ -881,6 +891,7 @@ async def process_chat(req: ChatRequest, background_tasks: BackgroundTasks, db: 
             "requires_appointment": requires_appointment
         }
     except Exception as e:
+        db.rollback()
         traceback.print_exc()
         raise e
 
