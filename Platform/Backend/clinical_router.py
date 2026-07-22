@@ -10,8 +10,12 @@ except ImportError:
 
 
 # ── Only EXPLICITLY general messages ────────────────────────────────────────
-PURE_GREETINGS    = ["hello","hi there","hey there","good morning","good evening","good night","how are you","how r u","what's up","wassup"]
-NEFFI_QUESTIONS   = ["who are you","what are you","what is neffi","introduce yourself","your name"]
+PURE_GREETINGS    = [
+    "hello", "hi there", "hey there", "good morning", "good evening", "good night", 
+    "how are you", "how r u", "what's up", "wassup", "how are you doing", "how are you doing today",
+    "hi neffi", "hello neffi", "hey neffi", "hi keffi", "hello keffi", "hey keffi"
+]
+NEFFI_QUESTIONS   = ["who are you","what are you","what is neffi","introduce yourself","your name", "what is keffi"]
 ENTERTAINMENT     = [
     "tell me a joke", "give me a joke", "hear a joke", "another joke", 
     "tell me another joke", "give me another joke", "punchline", "tell me the punchline", 
@@ -26,6 +30,11 @@ ENTERTAINMENT     = [
 EDUCATIONAL       = ["what is depression","what is anxiety","what is therapy","what is cbt","what is dbt","what is ptsd","what is ocd","what is mental health","how does therapy work","explain depression","explain anxiety"]
 THANKS_SHORT      = ["thank you","thanks so much","you helped","great session","you're amazing"]
 
+CLINICAL_CRITICAL_KEYWORDS = [
+    "sad", "depressed", "anxious", "panic", "suicide", "die", "kill", "harm", 
+    "cut myself", "lonely", "stress", "worry", "overthinking", "grief", "pain"
+]
+
 def is_general_conversation(msg: str) -> bool:
     """
     STRICT whitelist-only. Only returns True for EXPLICITLY casual messages.
@@ -34,8 +43,12 @@ def is_general_conversation(msg: str) -> bool:
     msg_lower = msg.lower().strip()
     words     = msg_lower.split()
 
-    # Pure greeting (≤4 words AND contains a greeting)
-    if len(words) <= 4 and any(g in msg_lower for g in PURE_GREETINGS):
+    # If it contains any clinical distress keyword, immediately bypass general route
+    if any(kw in msg_lower for kw in CLINICAL_CRITICAL_KEYWORDS):
+        return False
+
+    # Pure greeting (≤10 words AND contains a greeting)
+    if len(words) <= 10 and any(g in msg_lower for g in PURE_GREETINGS):
         return True
     # Questions about Neffi itself
     if any(q in msg_lower for q in NEFFI_QUESTIONS):
