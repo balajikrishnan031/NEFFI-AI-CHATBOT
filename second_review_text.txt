@@ -1,0 +1,800 @@
+--- Slide 1 ---
+DEPARTMENT OF CSE
+NAAN MUDHALVAN-NIRAL THIRUVIZHA
+UNIVERSITY
+COLLEGE OF ENGINEERING
+PRESENTED BY
+Dr. SIVANESH.,
+B.Tech
+.,
+M
+.Tech
+., Ph.
+D.,
+DEPARTMENT
+OF CSE
+MAJOR AREA:
+Artificial Intelligence in Mental Healthcare
+(AI-based Clinical Decision & Therapeutic Support System)
+2nd
+Review Date:
+07
+/05/2026
+17.
+How might we utilize AI chatbots and machine learning to address the challenges of incomplete alleviation of depression symptoms, attrition, and loss of follow-up in mental health treatment
+GUIDED BY
+BALAJI P(422623104035)
+MADHUMATHI S(422623104003)
+MALINI V(422623104048)
+https://meet.google.com/xrz-jdwc-ddx
+--- Slide 2 ---
+ABSTRACT
+Keffi AI is a
+Clinical Digital Therapeutics Platform
+designed to improve digital mental healthcare by overcoming
+the limitations of existing chatbots, which lack memory, personalization, and clinical safety.
+The system uses
+BERT-based emotion analysis
+to classify user input into
+96 clinically relevant emotional states
+,
+enabling deeper understanding beyond basic sentiment detection. It also incorporates a
+vector-based memory system
+to retain past conversations and build a continuous psychological profile of the user.
+A
+dynamic Mental Health Quotient (MHQ)
+tracks user condition in real time, while a
+predictive attrition algorithm
+identifies early signs of disengagement and emotional decline. The platform integrates an
+automation layer (n8n)
+to
+trigger real-time interventions such as alerts, reminders, and crisis responses.
+Keffi AI provides both a
+patient interface for interaction
+and a
+clinical dashboard for monitoring
+, bridging the gap
+between self-help tools and professional mental healthcare.
+--- Slide 3 ---
+PROBLEM STATEMENT
+How might we utilize AI chatbots and machine learning to address the challenges of incomplete alleviation of depression symptoms, attrition, and loss of follow-up in mental health treatment.
+Three Interconnected Challenges
+1. Incomplete Alleviation of Depression Symptoms
+Current treatments — therapy and medication — work for many, but not completely for all. Studies show that nearly
+50–60% of depression patients don't achieve full remission
+after a first-line treatment. This happens because:
+Treatment is often
+one-size-fits-all
+Symptom tracking between sessions is
+inconsistent or absent
+Patients suffer in silence between weekly or monthly appointments
+There's a
+significant gap
+between clinic visits where symptoms can worsen undetected
+2. Attrition — Dropping Out of Treatment
+A large portion of patients
+abandon treatment prematurely
+, often before meaningful progress is made. Key reasons include:
+Stigma
+around seeking continued mental health support
+Cost and accessibility
+barriers — therapy is expensive and geographically limited
+Lack of motivation
+when progress feels slow or invisible
+Feeling
+disconnected
+from a therapist they see infrequently
+3. Loss to Follow-Up
+Even patients who complete an initial treatment course often
+disappear from care entirely
+. This is dangerous because:
+Depression is
+episodic and recurring
+— without follow-up, relapse goes undetected
+There's no system proactively
+reaching out
+to at-risk patients
+Clinicians are overwhelmed and cannot manually track hundreds of patients
+The handoff between
+crisis care and long-term care
+is often broken
+--- Slide 4 ---
+SOLUTION
+Keffi AI is designed as a
+clinical mental health support system
+, not just a chatbot.
+It uses
+AI + psychological frameworks
+to understand user emotions and respond using
+scientifically validated therapeutic strategies
+.
+Instead of giving generic replies, Keffi:
+Analyzes user emotion in real-time
+Selects the
+best therapeutic response type
+Provides
+personalized, safe, and structured support
+Keffi’s 7 Therapeutic AI Response Types
+1.Validation & Empathy
+Accepts user feelings without judgment
+Builds emotional trust
+Based on:
+Person-Centered Therapy
+Proof:
+30% therapy success depends on feeling understood
+2.Metaphor & Storytelling
+Uses simple stories or analogies
+Helps users process emotions gently
+Based on:
+Acceptance & Commitment Therapy (ACT)
+Proof: Helps in
+cognitive
+defusion
+(reduces overthinking)
+--- Slide 5 ---
+3.Grounding & Somatic Techniques
+Breathing exercises (4-7-8)
+Brings user to present moment
+Based on:
+Polyvagal Theory & MBSR
+Proof:
+Reduces panic by 45–50%
+4.Cognitive Reframing (CBT)
+Changes negative thinking patterns
+Builds positive mindset
+Based on:
+Cognitive
+Behavioral
+Therapy (CBT)
+Proof:
+50–75% reduction in depression & anxiety (WHO approved)
+5.Reflective Questioning
+Asks open-ended questions
+Helps users understand themselves
+Based on:
+Motivational Interviewing
+Proof: Improves
+self-awareness & behavior change
+6.Guided Options (Quick Replies)
+Provides A/B/C choices
+Reduces mental effort
+Based on:
+Cognitive Load Theory
+Proof: Reduces
+decision fatigue & user dropout
+7.Crisis Intervention (SOS)
+Detects suicidal or high-risk signals
+Triggers emergency support
+Based on:
+WHO Suicide Prevention Protocols
+Proof: Ensures
+clinical safety & ethical compliance
+--- Slide 6 ---
+EXISTING SYSTEM
+1.
+Rule-Based Chatbots(Examples:
+Woebot
+,
+Wysa
+)
+Rule-based chatbots like
+Woebot
+and
+Wysa
+operate on simple keyword matching. When a user types a message, the bot identifies a keyword and returns a pre-written response — the same answer every time, regardless of context or emotional depth. There is no real AI understanding behind the conversation. After just 2 to 3 sessions, patients begin to feel the robotic nature of the interaction. These systems have zero clinical diagnosis ability, carry no memory between sessions, and involve no doctor at any point in the process.
+2.LLM Wrappers(Examples: ChatGPT-based Mental Health Bots)
+LLM-based mental health bots are essentially ChatGPT with a mental health prompt layered on top. The user's message — including all personal details — is sent directly to OpenAI's servers with no anonymization or privacy filtering. These systems have no emotion classification, no PHQ or MHQ scoring, and no follow-up mechanism. Because they are generative models, they carry a high hallucination risk — meaning they can confidently produce incorrect or even harmful clinical advice. They are not HIPAA compliant and have no awareness of the patient's history or mental health trajectory.
+3.Traditional Therapy Apps(Examples:
+BetterHelp
+,
+Talkspace
+)
+Traditional therapy platforms like
+BetterHelp
+and
+Talkspace
+connect patients with licensed human therapists. While this provides genuine clinical value, it comes with serious limitations in scalability and accessibility. Sessions cost between $60 to $100 per hour, require patients to wait days or even weeks for an appointment, and offer no real-time monitoring between sessions. There is no crisis detection between appointments, no automated intervention if a patient stops engaging, and no 24/7 availability. For patients in rural India — where language barriers and cultural stigma already limit access — these platforms are practically out of reach.
+--- Slide 7 ---
+RESEARCH AND SCIENTIFIC VALIDATION
+CBT Effectiveness (Cognitive Reframing)
+Paper:
+Hofmann, S. G., Asnaani, A., Vonk, I. J. J., Sawyer, A. T., & Fang, A. (2012).
+The Efficacy of Cognitive Behavioral Therapy: A Review of Meta-analyses.
+Cognitive Therapy and Research, 36(5), 427–440.
+CBT is WHO & APA's gold standard — proven 50–75% success rate in reducing depression and anxiety symptoms across multiple meta-analyses.
+Empathy & Therapeutic Alliance (Person-Centered)
+Paper:
+Norcross, J. C., &
+Wampold
+, B. E. (2011).
+Evidence-based therapy relationships: Research conclusions and clinical practices.
+Psychotherapy, 48(1), 98–102.
+Therapeutic alliance alone — the feeling of being heard — accounts for 30% of treatment success, independent of medication or technique.
+ACT & Mindfulness (Grounding & Metaphors)
+Paper:
+Hayes, S. C., Luoma, J. B., Bond, F. W., Masuda, A., & Lillis, J. (2006).
+Acceptance and Commitment Therapy: Model, processes and outcomes.
+Behaviour
+Research and Therapy, 44(1), 1–25.
+NHS-recommended ACT & mindfulness techniques reduce panic attacks and extreme anxiety by 45–50% through grounding and breathing exercises.
+--- Slide 8 ---
+AI Chatbot Proof — The
+Woebot
+Study (YOUR STRONGEST CARD)
+Paper:
+Fitzpatrick, K. K., Darcy, A., &
+Vierhile
+, M. (2017).
+Delivering Cognitive
+Behavior
+Therapy to Young Adults With Symptoms of Depression and Anxiety Using a Fully Automated Conversational Agent (
+Woebot
+): A Randomized Controlled Trial.
+JMIR Mental Health, 4(2), e19.
+In just
+2 weeks
+, an AI chatbot using CBT & empathy reduced depression symptoms by
+22%
+— scientifically validated via randomized controlled trial at Stanford University.
+Crisis Intervention & SOS Protocol
+Reference Tool:
+Posner, K., et al. (2011).
+The Columbia–Suicide Severity Rating Scale: Initial Validity and Internal Consistency Findings From Three Multisite Studies With Adolescents and Adults.
+American Journal of Psychiatry, 168(12), 1266–1277.
+Keffi's SOS system follows WHO Suicide Prevention Guidelines and the clinically validated C-SSRS triage protocol — ensuring safe human escalation when AI detects crisis signals.
+--- Slide 9 ---
+96-STATE CLINICAL EMOTION MODEL
+DEPRESSION (41 TYPES)
+MDD – 2+ weeks severe sadness
+PDD – Chronic mild depression 2+ yrs
+Bipolar – High vs low mood swings
+Postpartum – After childbirth depression
+SAD – Seasonal depression
+Psychotic – With hallucinations
+PMDD – Before periods mood issues
+Atypical – Temporary mood lift + oversleep
+DMDD – Child anger disorder
+TRD – Not responding to treatment
+Substance-induced – Due to drugs/alcohol
+Medical-condition – Due to illness
+Smiling – Hidden depression
+Melancholic – No pleasure at all
+Agitated – Restless + overthinking
+Double – Mild + severe combo
+Minor – Less severe MDD
+Catatonic – No movement state
+Endogenous – Internal chemical cause
+Reactive – Due to life event
+Existential – Meaning-of-life sadness
+Masked – Physical pain instead
+Geriatric – Elderly depression
+Recurrent Brief – Short repeated episodes
+Unipolar – Only low mood
+Vascular – Blood flow issue
+Cyclothymia – Mild bipolar
+Mixed Anxiety – Anxiety + depression
+Perimenopausal – Menopause-related
+Post-
+Schizo
+– After schizophrenia
+Adjustment – Life change stress
+Antenatal – During pregnancy
+Prolonged Grief – Long-term grief
+Male Syndrome – Anger/risk
+behavior
+Burnout – Work stress exhaustion
+Anergic – No energy state
+D-MER – Breastfeeding sadness
+PCD – After intimacy sadness
+--- Slide 10 ---
+ALLEVATION (18 STATES)
+Partial Response – Only partial recovery
+Residual Symptoms – Some symptoms remain
+Tachyphylaxis – Drug stops working
+Breakthrough – Depression returns
+TRD – No response to treatment
+Full Remission – Complete recovery
+Sustained Recovery – Stable long-term
+Spontaneous – Auto recovery
+Placebo – Belief improves state
+Nocebo – Negative belief worsens
+Honeymoon – Short-term improvement
+Relapse – Return before recovery
+Recurrence – New episode later
+Pseudo-resistance – Improper treatment issue
+Emotional Blunting – No emotions
+TEAS – Switch to mania
+Withdrawal – Stopping drug effects
+ATTRITION (20 TYPES)
+Voluntary – Leave by choice
+Involuntary – Forced removal
+Internal – Shift within org
+Demographic – Retirement/death
+Regrettable – Loss of top talent
+Non-regrettable – Low performer leaves
+New-hire – Early exit
+Veteran – Long-term exit
+Customer churn – Service leaving
+Student dropout – Education quit
+Mechanical – Wear & tear
+Dental – Teeth wear
+Geological – Rock erosion
+War attrition – Loss in war
+Clinical trial – Patient dropout
+Therapeutic – Stop treatment
+Data loss – Packet loss
+LOSS OF FOLLOW-UP (17 TYPES)
+Voluntary Withdrawal – Stops by choice
+Non-compliance – Avoids treatment
+Cured perception – Thinks cured
+Unintentional – Missed visits
+Silent loss – No contact
+Passive dropout – Ignores follow-up
+Active dropout – Informs and leaves
+Death – Patient expired
+Morbidity – Too ill to come
+Geographic – Moved away
+Economic – Cannot afford
+Stigma – Social fear
+Admin loss – System error
+Provider relocation – Doctor changed
+Protocol burden – Too complex
+Intermittent – Returns later
+Permanent – Never returns
+--- Slide 11 ---
+{5C22544A-7EE6-4342-B048-85BDC9FD1C3A}
+Title
+Author(s)
+Year
+Methodology / Approach
+Dataset Used
+Key Findings
+Emotion Detection using Deep Learning
+A. Kumar, R. Singh
+2021
+BERT-based emotion classification model
+GoEmotions
+Dataset
+Deep learning improves accuracy in multi-emotion detection
+Sentiment Analysis for Mental Health Monitoring
+J. Smith et al.
+2020
+NLP-based sentiment classification using machine learning
+Twitter Dataset
+Social media data can effectively detect emotional states
+AI Chatbots for Mental Health Support
+L. Johnson
+2019
+Rule-based + AI chatbot system
+Custom conversational dataset
+Chatbots provide accessible and immediate support
+Detecting Depression from Text
+M. Sharma et al.
+2022
+LSTM and NLP techniques
+Reddit Mental Health Dataset
+Language patterns can indicate early depression signs
+Multi-Emotion Classification using Transformers
+P. Verma
+2023
+Transformer models (BERT,
+RoBERTa
+)
+GoEmotions
+Transformers outperform traditional ML models
+LITERATURE SURVEY
+--- Slide 12 ---
+PHQ + MHQ HYBRID SCORING SYSTEM
+PHQ (Patient Health Questionnaire)
+Standard clinical assessment tool
+Score Range:
+0 – 27
+Severity Levels:
+0 – 4
+→ Minimal (0–15%)
+5 – 9
+→ Mild (16–33%)
+10 – 14
+→ Moderate (34–52%)
+15 – 19
+→ Moderately Severe (53–70%)
+20 – 27
+→ Severe (71–100%)
+MHQ (Mental Health Quotient – Keffi AI)
+AI-based dynamic scoring system
+Score Range:
+0 – 100
+State Levels:
+80 – 100
+→ Healthy / Thriving
+60 – 79
+→ Stable
+40 – 59
+→ Mild Risk
+20 – 39
+→ Moderate Risk
+0 – 19
+→ Critical
+--- Slide 13 ---
+The Clinical Brain — BERT + Fast API
+BERT =
+Bidirectional Encoder Representations from Transformers
+It reads patient text
+both left-to-right AND right-to-left
+simultaneously
+This means it understands
+context
+, not just keywords
+Patient Message
+↓
+① REACT UI        →  Voice/Text captured via Web Speech API
+↓
+② FASTAPI GATE    →  PII Stripped (Name/Phone/Location removed)
+↓
+③ BERT ENGINE     →  96-State Emotion Analysis + Confidence %
+↓
+④ PINECONE MEMORY →  Past memories matched by similarity score
+↓
+⑤ MHQ CALCULATOR  →  Live score updated (0–100 dynamic)
+↓
+⑥ DUAL RESPONSE   →  Backend: Doctor Report | Frontend: Empathy Chat
+--- Slide 14 ---
+BERT Output Example:
+Patient says:
+"I've been feeling tired, nothing excites me anymore...“
+BERT detects:
+Sadness               → 84.3%
+Hopelessness      → 71.2%
+Anhedonia          → 68.9%
+Exhaustion         → 61.4%
+Joy                      → 2.1%
+BERT measures.
+FastAPI
+protects. Pinecone remembers. Claude speaks. — All in under 2 seconds.
+--- Slide 15 ---
+System Architecture — Layered AI Infrastructure
+User Interface Layer (Frontend)
+Built using
+React + Tailwind CSS
+Provides:
+Patient Sanctuary (chat, mood tracking, tools)
+Admin Dashboard (doctor monitoring)
+Handles:
+User input (text / voice)
+Mood check-ins & interaction
+The Brain (Backend –
+FastAPI
++ Python)
+Core processing engine of the system
+Handles:
+User & session management
+AI logic routing
+Risk assessment & alerts
+Clinical safety checks
+Uses:
+REST APIs,
+WebSockets
+, Webhooks
+--- Slide 16 ---
+--- Slide 17 ---
+Memory & NLP Core
+BERT Model
+Performs
+96-state emotion classification
+Extracts sentiment + confidence score
+Vector Database (Pinecone)
+Stores conversation embeddings
+Enables long-term memory recall
+Automation Router (n8n)
+Webhook-driven automation engine
+Components:
+Trigger (incoming event)
+Condition check (risk level)
+Action router (decision flow)
+Logging & monitoring
+Handles:
+WhatsApp nudges
+Crisis alerts
+Doctor notifications
+External Services & Integrations
+WhatsApp → User engagement & nudges
+Email → Doctor alerts
+Calendar → Reminders & scheduling
+Database Layer
+PostgreSQL
+→ User & clinical data
+Redis
+→ Real-time caching
+Pinecone
+→ Vector memory
+Secure Storage
+→ Logs & reports
+--- Slide 18 ---
+MODULE DESCRIPTION
+1. User Experience Layer
+Provides interaction through
+Web / Mobile / Voice interface
+Includes:
+Chat interface for user communication
+Mood check-in system
+Dashboard to track mental health progress
+Ensures
+easy, user-friendly and accessible design
+2. Emotion Understanding Module
+Uses
+BERT-based NLP model
+for emotion detection
+Processes:
+User text / voice input
+Converts into embeddings
+Classifies into
+multi-emotion states (fine-grained emotions)
+Helps in identifying user’s
+emotional condition accurately
+3. Therapy & Response Engine
+Generates
+context-aware responses
+Supports multiple techniques:
+Empathy-based replies
+Cognitive
+Behavioral
+Therapy (CBT)
+Grounding techniques
+Storytelling-based support
+Ensures
+human-like emotional interaction
+4. Mental Health & Risk Analysis Module
+Calculates
+Mental Health Quotient (MHQ)
+Performs:
+Real-time emotional scoring
+Risk detection (stress, anxiety, crisis signals)
+Uses
+AI models + predefined clinical rules
+5. Memory System
+Short-Term Memory (Redis):
+Stores recent conversations
+Maintains session context
+Long-Term Memory (Pinecone):
+Stores past interactions
+Enables semantic search & recall
+Helps chatbot provide
+personalized responses
+--- Slide 19 ---
+6. Data Storage Layer
+Stores structured and unstructured data:
+PostgreSQL → User & clinical data
+Redis → Real-time cache
+Pinecone → Vector memory
+Secure Storage → Logs & reports
+Ensures
+efficient and secure data handling
+7. Real-Time Communication Module
+Enables:
+Live chat streaming
+Instant responses
+Typing indicators
+Uses technologies like
+WebSockets
+Ensures
+smooth real-time interaction
+8. Automation & Event Engine
+Handles workflows using
+event-based triggers
+Functions:
+Detects conditions
+Triggers actions (alerts, responses)
+Supports
+real-time intervention and automation
+9. External Integration Module
+Integrates with:
+WhatsApp (chat support)
+Email (alerts & reports)
+SMS (critical notifications)
+Calendar (reminders)
+Expands chatbot
+reach and usability
+10. Security & Compliance Layer
+Ensures:
+End-to-End Encryption
+Role-Based Access Control (RBAC)
+Data privacy & anonymization
+Supports
+secure and ethical AI usage
+--- Slide 20 ---
+Core Architecture – n8n Automation Engine
+Entry Point —
+FastAPI
+Webhook
+This is where everything begins. A patient sends a message (likely through a chat interface or WhatsApp), and that message hits your
+FastAPI
+webhook
+as an HTTP POST request.
+FastAPI
+acts as the front door — it receives the raw message payload and immediately passes it into the n8n workflow. This is your system's trigger node, meaning nothing runs until this webhook fires.
+Branch 1 — Premium Pipeline (The Core AI Chain)
+When the Triage node classifies a message as premium, it enters a
+sequential 3-AI chain
+— each model building on the previous one's output:
+Step 1 — Gemini (Diagnosis Engine)
+The patient's message is sent to
+Google's Gemini
+via the Generative Language API. Gemini's job is purely clinical — it analyses the symptoms, duration, and severity described by the patient and generates a
+structured clinical diagnosis
+. It might return a differential diagnosis list or a primary suspected condition. This output is not patient-facing yet — it's raw clinical data.
+--- Slide 21 ---
+Step 2 — Claude (Empathy Story Engine)
+Gemini's clinical output is then passed to
+Anthropic's Claude
+. Claude's job is to take that cold, clinical diagnosis and
+wrap it in compassionate, human language
+. It rewrites the information so the patient doesn't feel like they're reading a medical report. Claude handles the emotional layer — reducing anxiety, using culturally sensitive language, and making the patient feel heard. This is why Claude specifically was chosen for this step — it excels at nuanced, empathetic communication.
+Step 3 — ChatGPT (Options Engine)
+Claude's empathetic response is then passed to
+OpenAI's ChatGPT
+. ChatGPT's role is to generate
+clear, actionable next steps
+for the patient — things like "visit a clinic," "take these OTC medications," "call emergency services," or "monitor at home." It formats the response as a numbered menu of options so the patient knows exactly what to do next. This is the final response that gets sent back to the patient.
+Branch 2 — Normal Chat
+If the Triage node decides the message is a simple, non-clinical query, it skips all three AI models entirely and
+returns a standard conversational reply
+directly. This keeps costs low and response time fast for messages that don't need clinical processing — things like greetings, appointment questions, or general information requests.
+--- Slide 22 ---
+Branch 3 — Crisis Protocol (Safety-Critical Path)
+This is arguably the most important branch from a
+patient safety
+perspective. When the Triage node detects crisis indicators — suicidal ideation, self-harm language, medical emergencies — two things happen simultaneously or in sequence:
+WhatsApp SOS Alert (Twilio)
+An automated WhatsApp message is instantly fired to a
+designated emergency contact
+— likely a clinical supervisor, on-call doctor, or crisis team — via the Twilio API. This happens without any human initiating it. The clinician is alerted in real time.
+Return Crisis Protocol
+A
+pre-written, clinically-approved crisis response
+is sent back to the patient. This is hardcoded content — it does NOT go through Gemini, Claude, or ChatGPT. This is a deliberate safety design decision: LLMs can hallucinate, and a hallucinated response to someone in crisis could be catastrophic. The response contains things like helpline numbers, grounding instructions, and immediate next steps.
+--- Slide 23 ---
+ADVANTAGE
+1.96-State Emotion Understanding
+Other bots: 3–5 basic emotions
+Keffi: 96 clinically classified states (41 depression types, 20 attrition types, 17 loss-of-follow-up types)
+Powered by
+BERT
+— reads context bidirectionally, not just keywords
+2.Vector Memory (Pinecone)
+Other bots: Stateless — no memory between sessions
+Keffi: Stores conversation embeddings → builds a
+continuous psychological profile
+over time
+Remembers past pain points, triggers, and progress
+3.Dynamic MHQ Scoring
+Other bots: No health scoring system
+Keffi: Live
+Mental Health Quotient (0–100)
+updated every session, mapped to PHQ clinical standards
+--- Slide 24 ---
+4.Triple-AI Architecture
+Other bots: Single LLM
+Keffi uses
+3 specialized AIs in parallel:
+Gemini → Deep diagnosis & pattern analysis Claude → Human-like empathy & storytelling ChatGPT → Structured A/B/C guided options
+5.Predictive Attrition Engine
+Other bots: React only when user messages
+Keffi:
+Predicts dropout before it happens
+→ triggers WhatsApp nudges, reminders, alerts via n8n
+6.Clinical Crisis Protocol
+Other bots: Show a helpline number at best
+Keffi: Follows
+C-SSRS + WHO protocols
+→ auto-alerts doctor, sends WhatsApp SOS, activates crisis response
+7.Two-Sided Platform
+Other bots: Only patient-facing
+Keffi: Patient app +
+Clinical Hub dashboard
+for doctors with NLP analytics, patient roster, therapist allocation
+--- Slide 25 ---
+SYSTEM REQUIREMENTS
+1. Hardware Requirements
+Processor: Intel i3 / AMD equivalent or higher
+RAM: Minimum 4 GB (8 GB recommended)
+Storage: 10 GB free disk space
+Device: Laptop / Desktop / Smartphone
+Internet: Stable connection for real-time interaction
+2. Software Requirements
+Operating System: Windows / Linux / macOS
+Programming Language: Python
+Frameworks:
+FastAPI
+/ Flask
+Frontend: React.js / HTML / CSS / Tailwind
+Database: PostgreSQL
+Tools: Google
+Colab
+/ VS Code /
+Jupyter
+Notebook
+3. AI & NLP Requirements
+NLP Model: BERT (Bidirectional Encoder Representations from Transformers)
+Libraries:
+Transformers (Hugging Face)
+TensorFlow /
+PyTorch
+NLTK /
+SpaCy
+Emotion Dataset:
+GoEmotions
+/ Custom dataset
+4. Storage & Memory Requirements
+Short-Term Memory: Redis
+Long-Term Memory: Pinecone (Vector Database)
+File Storage: Cloud / Local storage
+5. Communication Requirements
+WebSockets
+for real-time chat
+REST APIs for backend communication
+Internet connectivity for API calls
+6. Security Requirements
+User data encryption (HTTPS / TLS)
+Authentication & Authorization
+Data privacy and anonymization
+Secure database access
+--- Slide 26 ---
+ROADMAP
+Phase 1 — Now (Current Prototype)
+What's built:
+Full React + Tailwind UI (Patient Sanctuary + Clinical Hub)
+BERT-based 96-state emotion engine via
+FastAPI
+Pinecone vector memory system
+MHQ dynamic scoring (0–100)
+Attrition prediction algorithm
+n8n automation pipeline
+7 therapeutic AI response types
+Phase 2 — 3 Months (Deployment & Engagement)
+What's planned:
+Cloud deployment
+on AWS /
+Vercel
+for real users
+WhatsApp integration
+— reach users where they already are
+Automated engagement
+— scheduled check-ins, mood nudges, streak reminders
+Multi-language support
+— Tamil, Hindi, regional languages (building on existing Tamil capability)
+--- Slide 27 ---
+Phase 3 — 6 Months (Biometric Intelligence)
+What's planned:
+Smartwatch / Wearable integration
+(Apple Watch, Fitbit, Garmin)
+Monitor: Heart rate variability, sleep patterns, stress signals
+Auto-trigger
+calming tools when physiological distress detected
+Example: Heart rate spikes → Keffi automatically sends 4-7-8 breathing exercise
+Phase 4 — 1 Year+ (Clinical Validation & Scale)
+What's planned:
+IRB-approved clinical trial
+— validate Keffi in real hospital/clinic setting
+Doctor integration
+— prescribing doctors can view MHQ scores alongside PHQ results
+Insurance & healthcare system
+tie-ins
+FDA/CE digital therapeutics
+certification pathway
+Research publication
+— contribute to the
+Woebot
+-level evidence base
+--- Slide 28 ---
+JOURNEY VIDEO REFERENCE
+FIRST REVIEW OF OUR
+PROJECT WITH COLLEGE
+MENTOR
+--- Slide 29 ---
+CONCLUSION
+Keffi AI is not just a traditional chatbot but a clinically inspired digital mental health platform that combines artificial intelligence with proven psychological frameworks to deliver personalized and real-time support. By understanding 96+ emotional and depression states, integrating therapeutic response strategies like CBT and empathy-based interaction, and enabling automation through systems like n8n, the platform ensures both intelligent conversation and timely intervention. It addresses key limitations of existing solutions such as lack of memory, poor personalization, and absence of safety mechanisms. With features like MHQ scoring, attrition prediction, and
+future integration with wearable devices, Keffi AI moves towards a proactive and continuous mental healthcare
+model. Overall, it represents a shift from reactive chatbot systems to a smart, scalable, and clinically aware mental
+health ecosystem capable of supporting users effectively and bridging the gap between technology and healthcare.
+--- Slide 30 ---
+THANK YOU
