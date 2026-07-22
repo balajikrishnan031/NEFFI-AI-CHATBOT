@@ -719,6 +719,25 @@ async def process_chat(req: ChatRequest, background_tasks: BackgroundTasks, db: 
 
         # Select the exact rule to inject into the LLM
         rule_to_send = dynamic_rules.get(predicted_method, dynamic_rules["Rogerian"])
+        
+        # Override with exact 96-state custom rationale, framework, and action from clinical_solutions.py
+        from clinical_solutions import CLINICAL_SOLUTIONS_MAP
+        if state_num in CLINICAL_SOLUTIONS_MAP and predicted_method in ["Dynamic_Counselor", "CBT", "Somatic", "DBT", "ACT", "Rogerian", "Double_Standard_CBT"]:
+            sol = CLINICAL_SOLUTIONS_MAP[state_num]
+            framework = sol["therapy_framework"]
+            rationale = sol["psychological_rationale"]
+            action = sol["directed_action"]
+            
+            # Construct a highly targeted clinical instruction for this exact state
+            rule_to_send = (
+                f"Rule 1: Deep Validation: Empathize deeply with the user's specific state of {sol['state_name']}, validating their burden.\n"
+                f"Rule 2: Clinical Explanation: Give a brief, literal explanation of this pattern: '{rationale}' (strictly NO metaphors or analogies). NEVER repeat a past explanation.\n"
+                f"Rule 3: Tailored Action: Provide exactly this directed action: - {action}. Focus on practical, real-world physical grounding or cognitive task. No abstract visualizations.\n"
+                f"Rule 4: Limit: Keep it to 2-3 natural human paragraphs."
+            )
+            if not is_sos:
+                suggested_options = sol["suggested_options"]
+                
         intervention_type = rule_to_send
 
         # Database log cleansing for casual & entertainment modes
