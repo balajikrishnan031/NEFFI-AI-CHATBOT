@@ -106,8 +106,12 @@ def trigger_sos_alert(patient_id: str, message: str, clinical_state: str):
     except Exception as log_err:
         print(f"[EMERGENCY LOG WRITER FAILED] {log_err}")
 
-    # n8n is not used. All alerts are written safely to local emergency fallback log.
-    pass
+    # n8n Trigger integration (Hybrid Mode: Background Fail-Safe)
+    try:
+        requests.post(N8N_ALERT_WEBHOOK, json=payload, timeout=3)
+        print(f"[SOS N8N ALERT SENT] Patient: {patient_id}")
+    except Exception as e:
+        print(f"[SOS N8N ALERT OFFLINE/SKIPPED] {e}")
 
 # ----------------------------------------------------------
 # PATIENT LOGIN & PROFILE PERSISTENCE
@@ -902,15 +906,24 @@ async def book_appointment(req: AppointmentRequest, db: Session = Depends(get_db
         "booking_source": "Neffi_App"
     }
     
-    # n8n is not used. Appointments are logged to a local file for audit compliance.
+    # Local fallback file logging for audit compliance
     try:
         log_path = os.path.join(os.path.dirname(__file__), "appointments.log")
         timestamp = datetime.utcnow().isoformat()
         with open(log_path, "a", encoding="utf-8") as f:
             f.write(f"[{timestamp}] APPOINTMENT BOOKED | PATIENT: {payload['patient_id']} | NAME: {payload['name']} | PHONE: {payload['phone']} | EMAIL: {payload['email']}\n")
-        return {"status": "success", "message": "Appointment booked successfully in local clinical roster!"}
+    except Exception as log_err:
+        print(f"[LOCAL APPOINTMENT LOG FAILED] {log_err}")
+
+    # n8n Trigger integration (Hybrid Mode: Fallback on network/port timeout)
+    try:
+        response = requests.post(N8N_APPOINTMENT_WEBHOOK, json=payload, timeout=3)
+        if response.status_code == 200:
+            return {"status": "success", "message": "Appointment request sent to n8n successfully!"}
     except Exception as e:
-        return {"status": "error", "message": f"Local booking failed: {str(e)}"}
+        print(f"[N8N BOOKING OFFLINE] Using local clinical registry. Error: {e}")
+        
+    return {"status": "success", "message": "Appointment booked successfully in local clinical roster!"}
 
 # ----------------------------------------------------------
 # ADMIN API ENDPOINTS
