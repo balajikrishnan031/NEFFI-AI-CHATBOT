@@ -1019,7 +1019,7 @@ const PatientLogin = ({ setView, setUserData }) => {
       const patientId = 'P-' + phoneClean.slice(-6);
       const fullData = { ...formData, patient_id: patientId };
 
-      axios.post('https://balajikrishnan031-keffi-backend.hf.space/api/patient/login', {
+      axios.post('https://balajikrishnan031-neffi-backend.hf.space/api/patient/login', {
         patient_id: patientId,
         name: formData.name,
         phone: formData.phone,
@@ -1297,7 +1297,7 @@ const DailyMoodCheckIn = ({ patientId, onComplete }) => {
 
   const handleMoodSelect = (mood) => {
     setIsSubmitting(true);
-    fetch('https://balajikrishnan031-keffi-backend.hf.space/api/patient/check-in', {
+    fetch('https://balajikrishnan031-neffi-backend.hf.space/api/patient/check-in', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -1522,7 +1522,7 @@ const ChatArea = ({
       });
 
       if (titleToSync && userData?.patient_id) {
-        axios.post(`https://balajikrishnan031-keffi-backend.hf.space/api/patient/${userData.patient_id}/session`, {
+        axios.post(`https://balajikrishnan031-neffi-backend.hf.space/api/patient/${userData.patient_id}/session`, {
           session_id: currentSessionId,
           title: titleToSync
         }).catch(err => console.error("Error syncing session title to backend:", err));
@@ -1659,7 +1659,7 @@ const ChatArea = ({
     try {
       const payloadContext = isCameraActive && visualEmotion ? `[Visual Face Emotion Detected via Webcam: ${visualEmotion}] ` + lastEmotionalMessage : lastEmotionalMessage;
       
-      const response = await axios.post('https://balajikrishnan031-keffi-backend.hf.space/api/chat', {
+      const response = await axios.post('https://balajikrishnan031-neffi-backend.hf.space/api/chat', {
         message: message,
         patient_id: userData?.patient_id || "P-102",
         session_id: currentSessionId,
@@ -1713,7 +1713,7 @@ const ChatArea = ({
   const handleBookAppointment = async () => {
     setShowAppointmentPopup(false);
     try {
-      await axios.post('https://balajikrishnan031-keffi-backend.hf.space/api/book_appointment', {
+      await axios.post('https://balajikrishnan031-neffi-backend.hf.space/api/book_appointment', {
         patient_id: "P-102",
         name: userData?.name || "Patient",
         phone: userData?.phone || "9876543210",
@@ -2547,7 +2547,7 @@ const PatientDashboard = ({ setView, userData }) => {
 
   useEffect(() => {
     if (userData?.patient_id) {
-      axios.get(`https://balajikrishnan031-keffi-backend.hf.space/api/patient/${userData.patient_id}/sessions`)
+      axios.get(`https://balajikrishnan031-neffi-backend.hf.space/api/patient/${userData.patient_id}/sessions`)
         .then(res => {
           const loadedSessions = res.data.sessions || [];
           
@@ -2564,7 +2564,7 @@ const PatientDashboard = ({ setView, userData }) => {
           setSessions(updated);
           setCurrentSessionId(newId);
           
-          axios.post(`https://balajikrishnan031-keffi-backend.hf.space/api/patient/${userData.patient_id}/session`, {
+          axios.post(`https://balajikrishnan031-neffi-backend.hf.space/api/patient/${userData.patient_id}/session`, {
             session_id: newId,
             title: newSession.title
           }).catch(err => console.error("Error creating initial session:", err));
@@ -2593,7 +2593,7 @@ const PatientDashboard = ({ setView, userData }) => {
     };
     
     if (userData?.patient_id) {
-      axios.post(`https://balajikrishnan031-keffi-backend.hf.space/api/patient/${userData.patient_id}/session`, {
+      axios.post(`https://balajikrishnan031-neffi-backend.hf.space/api/patient/${userData.patient_id}/session`, {
         session_id: newId,
         title: newSession.title
       }).catch(err => console.error("Error creating session in backend:", err));
@@ -2614,7 +2614,7 @@ const PatientDashboard = ({ setView, userData }) => {
     }
     
     if (userData?.patient_id) {
-      axios.delete(`https://balajikrishnan031-keffi-backend.hf.space/api/patient/${userData.patient_id}/session/${sessionId}`)
+      axios.delete(`https://balajikrishnan031-neffi-backend.hf.space/api/patient/${userData.patient_id}/session/${sessionId}`)
         .catch(err => console.error("Error deleting session in backend:", err));
     }
     
@@ -2880,9 +2880,9 @@ const AdminDashboard = ({ setView }) => {
     const fetchData = async () => {
       try {
         const [resPat, resInact, resAnalyt] = await Promise.all([
-          axios.get('https://balajikrishnan031-keffi-backend.hf.space/api/admin/patients'),
-          axios.get('https://balajikrishnan031-keffi-backend.hf.space/api/admin/inactive-patients'),
-          axios.get('https://balajikrishnan031-keffi-backend.hf.space/api/admin/analytics')
+          axios.get('https://balajikrishnan031-neffi-backend.hf.space/api/admin/patients'),
+          axios.get('https://balajikrishnan031-neffi-backend.hf.space/api/admin/inactive-patients'),
+          axios.get('https://balajikrishnan031-neffi-backend.hf.space/api/admin/analytics')
         ]);
         if (resPat.data && resPat.data.patients) setPatients(resPat.data.patients);
         if (resInact.data && resInact.data.patients) setInactivePatients(resInact.data.patients);
@@ -2953,7 +2953,7 @@ const AdminDashboard = ({ setView }) => {
 
   const handleExportAbstract = async (patientId) => {
     try {
-      const res = await axios.get(`https://balajikrishnan031-keffi-backend.hf.space/api/patient/${patientId}/report`);
+      const res = await axios.get(`https://balajikrishnan031-neffi-backend.hf.space/api/patient/${patientId}/report`);
       const data = res.data;
       const content = `Clinical Abstract for ${data.name || data.patient_id}\n\nMHQ Score: ${data.current_mhq}\nRisk Level: ${data.depression_level}\nAssigned Doctor: ${data.assigned_doctor || 'Unassigned'}\n\nSummary:\n${data.clinical_abstract}\n`;
       const blob = new Blob([content], { type: 'text/plain' });
@@ -2971,7 +2971,7 @@ const AdminDashboard = ({ setView }) => {
 
   const assignTherapist = async (patientId, docName) => {
     try {
-      await axios.post('https://balajikrishnan031-keffi-backend.hf.space/api/admin/assign-therapist', { patient_id: patientId, doctor_name: docName });
+      await axios.post('https://balajikrishnan031-neffi-backend.hf.space/api/admin/assign-therapist', { patient_id: patientId, doctor_name: docName });
       alert(`Successfully assigned ${docName} to ${patientId}`);
     } catch(err) {
       console.error(err);

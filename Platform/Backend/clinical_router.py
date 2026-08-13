@@ -13,9 +13,9 @@ except ImportError:
 PURE_GREETINGS    = [
     "hello", "hi there", "hey there", "good morning", "good evening", "good night", 
     "how are you", "how r u", "what's up", "wassup", "how are you doing", "how are you doing today",
-    "hi neffi", "hello neffi", "hey neffi", "hi keffi", "hello keffi", "hey keffi"
+    "hi neffi", "hello neffi", "hey neffi"
 ]
-NEFFI_QUESTIONS   = ["who are you","what are you","what is neffi","introduce yourself","your name", "what is keffi"]
+NEFFI_QUESTIONS   = ["who are you","what are you","what is neffi","introduce yourself","your name"]
 ENTERTAINMENT     = [
     "tell me a joke", "give me a joke", "hear a joke", "another joke", 
     "tell me another joke", "give me another joke", "punchline", "tell me the punchline", 
